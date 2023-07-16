@@ -1,0 +1,16 @@
+.menu {
+    background-color: #001529;
+    border: none;
+    font-size: 16px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    max-height: 0;
+    position: absolute;
+    top: 75px;
+    z-index: 5000;
+  }
+
+  .menu.open {
+    max-height: 200px;
+    /* Altura máxima deseada para el menú desplegado */
+  }
