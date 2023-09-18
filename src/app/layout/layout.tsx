@@ -1,11 +1,12 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import { Layout } from "antd";
 import HeaderComponent from "../components/header/header";
-import CarouselComponent from "../components/carousel/carousel";
-import CategoriaPage from "../page/categoria/categoria";
 import FooterComponent from "../components/footer/footer";
 import "./layout.css";
 import Breadcrumbs from "../components/breadcrumb/breadcrumb";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../root-reducer";
+import { decrement, increment, incrementByAmount } from "./slices/layout.slice";
 
 const { Content } = Layout;
 
@@ -14,6 +15,14 @@ interface CustomLayoutProps {
 }
 
 const CustomLayout: React.FC<CustomLayoutProps> = ({ children }) => {
+  const categorias = useSelector((state: RootState) => state.layout.categorias);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(increment());
+    dispatch(decrement());
+    dispatch(incrementByAmount(5));
+  }, []);
   return (
     <Layout className="layout">
       <HeaderComponent />

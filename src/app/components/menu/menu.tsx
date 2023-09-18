@@ -5,12 +5,21 @@ import {
   UserOutlined,
   MenuOutlined,
   HomeOutlined,
+  AppstoreOutlined,
 } from "@ant-design/icons";
 import "./menu.css";
 import { Link } from "react-router-dom";
 
-interface CategoriaItems {
+export interface CategoriaItems {
   categoria_id: number;
+  nombre: string;
+  path: string;
+  image?: string;
+  subcategorias?: SubCategoriasItems[];
+}
+
+interface SubCategoriasItems {
+  subcategoria_id: number;
   nombre: string;
   path: string;
   image?: string;
@@ -22,6 +31,7 @@ interface MenuComponentProps {
 
 const MenuComponent: React.FC<MenuComponentProps> = ({ categorias }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { SubMenu } = Menu;
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -34,13 +44,24 @@ const MenuComponent: React.FC<MenuComponentProps> = ({ categorias }) => {
         size="large"
       />
       <div className={`menu ${isMenuOpen ? "open" : ""}`}>
-        {categorias.map((item, index) => (
-          <Menu mode="vertical" theme="dark">
-            <Menu.Item key={index} icon={<HomeOutlined />}>
-              <Link to={item.path}>{item.nombre}</Link>
-            </Menu.Item>
-          </Menu>
-        ))}
+        <Menu mode="vertical" theme="dark">
+          <Menu.Item key="home" icon={<HomeOutlined />}>
+            <Link to="/">Inicio</Link>
+          </Menu.Item>
+          {categorias.map((item, index) => (
+            <SubMenu
+              key={index}
+              icon={<AppstoreOutlined />}
+              title={item.nombre}
+            >
+              {item.subcategorias?.map((sub, index) => (
+                <Menu.Item key={sub.nombre + index}>
+                  <Link to={sub.path}>{sub.nombre}</Link>
+                </Menu.Item>
+              ))}
+            </SubMenu>
+          ))}
+        </Menu>
       </div>
     </div>
   );

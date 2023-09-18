@@ -9,15 +9,38 @@ import {
 import "./header.css";
 import ProductFilter from "../product/filter-product";
 import MenuComponent from "../menu/menu";
+import { Link } from "react-router-dom";
+import { setOpenModalShoppingCart } from "../../layout/slices/layout.slice";
+import { useDispatch } from "react-redux";
 const { Header } = Layout;
 
 const HeaderComponent: React.FC = () => {
+  const dispatch = useDispatch();
+  const showModal = (open: boolean) => {
+    dispatch(setOpenModalShoppingCart(open));
+  };
   return (
     <Header className="header">
       <MenuComponent
         categorias={[
           { categoria_id: 1, nombre: "Inicio", path: "/" },
-          { categoria_id: 2, nombre: "Deportes", path: "/productos/deportes" },
+          {
+            categoria_id: 2,
+            nombre: "Deportes",
+            path: "/productos/deportes",
+            subcategorias: [
+              {
+                nombre: "zapatillas",
+                path: "/productos/deportes/zapatillas",
+                subcategoria_id: 1,
+              },
+              {
+                nombre: "camisetas de futbol",
+                path: "/productos/deportes/camisetas-futbol",
+                subcategoria_id: 2,
+              },
+            ],
+          },
         ]}
       />
       <div className="logo">Nombre de la Tienda</div>
@@ -34,7 +57,12 @@ const HeaderComponent: React.FC = () => {
         />
       </div>
       <div className="actions">
-        <Button type="link" icon={<ShoppingCartOutlined />} size="large">
+        <Button
+          type="link"
+          icon={<ShoppingCartOutlined />}
+          size="large"
+          onClick={() => showModal(true)}
+        >
           <Badge count={2}>Carrito de compras</Badge>
         </Button>
         <Button type="link" icon={<UserOutlined />} size="large">

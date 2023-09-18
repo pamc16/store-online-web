@@ -1,6 +1,12 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import CarouselComponent from "../../components/carousel/carousel";
 import CategoriaPage from "../categoria/categoria";
+import { Modal } from "antd";
+import ShoppingCart from "../../components/shopping-cart/shopping-cart";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../root-reducer";
+import { setOpenModalShoppingCart } from "../../layout/slices/layout.slice";
+import ShoppingCartModal from "../../components/shopping-cart/modal/shopping-cart-modal";
 
 const HomePage: React.FC = () => {
   return (
@@ -24,6 +30,7 @@ const HomePage: React.FC = () => {
         ]}
       />
       <CategoriaPage />
+      <ShoppingCartModal />
     </div>
   );
 };
