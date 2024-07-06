@@ -7,6 +7,7 @@ import HomePage from "./app/page/home/home";
 import { Provider } from "react-redux";
 import store from "./store";
 import ShoppingCart from "./app/components/shopping-cart/shopping-cart";
+import Login from "./app/page/login/login";
 
 const App: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/carrito-compras" element={<ShoppingCart />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </CustomLayout>
       </Router>
