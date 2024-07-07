@@ -1,0 +1,33 @@
+/* src/styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+  }
+  
+  .ant-typography {
+    text-align: center;
+  }
+  
+  .ant-card {
+    transition: transform 0.3s;
+    border-radius: 8px;
+  }
+  
+  .ant-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .ant-row {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .ant-avatar {
+    margin-bottom: 20px;
+  }
+  
+  a:hover {
+    color: #1890ff;
+  }
+  

@@ -11,6 +11,10 @@
   }
 
   .menu.open {
-    max-height: 200px;
+    max-height: 250px;
     /* Altura máxima deseada para el menú desplegado */
+  }
+
+  .container-menu {
+    display: flex;
   }

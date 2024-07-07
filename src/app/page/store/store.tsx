@@ -1,14 +1,15 @@
-import React, { ReactNode, useState } from "react";
+import React, { useEffect } from "react";
 import CarouselComponent from "../../components/carousel/carousel";
 import CategoriaPage from "../categoria/categoria";
-import { Modal } from "antd";
-import ShoppingCart from "../../components/shopping-cart/shopping-cart";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../root-reducer";
-import { setOpenModalShoppingCart } from "../../layout/slices/layout.slice";
-import ShoppingCartModal from "../../components/shopping-cart/modal/shopping-cart-modal";
+import { useDispatch } from "react-redux";
+import { setShowShoppingCart } from "./slice/store.slice";
 
-const HomePage: React.FC = () => {
+const StorePage: React.FC = () => {
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(setShowShoppingCart(true))
+  },[dispatch])
   return (
     <div>
       <CarouselComponent
@@ -30,9 +31,8 @@ const HomePage: React.FC = () => {
         ]}
       />
       <CategoriaPage />
-      <ShoppingCartModal />
     </div>
   );
 };
 
-export default HomePage;
+export default StorePage;

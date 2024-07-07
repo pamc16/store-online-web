@@ -1,0 +1,48 @@
+/* src/styles.css */
+ 
+  .site-layout-content {
+    padding: 24px;
+    background: #fff;
+  }
+  
+  .site-layout-content > div {
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+  
+  .logo {
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px;
+  }
+  
+  .ant-carousel {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .ant-carousel img {
+    height: 400px;
+    object-fit: cover;
+  }
+  
+  .ant-typography {
+    text-align: center;
+  }
+  
+  .ant-divider-horizontal {
+    margin: 24px 0;
+  }
+  
+  .ant-card {
+    margin-bottom: 24px;
+  }
+  
+  .ant-menu-dark .ant-menu-item-selected {
+    background-color: #1890ff !important;
+  }
+  
+  .ant-menu-dark .ant-menu-item-selected a {
+    color: #fff !important;
+  }
+  

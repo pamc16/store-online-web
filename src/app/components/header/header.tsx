@@ -9,41 +9,38 @@ import {
 import "./header.css";
 import ProductFilter from "../product/filter-product";
 import MenuComponent from "../menu/menu";
-import { Link } from "react-router-dom";
 import { setOpenModalShoppingCart } from "../../layout/slices/layout.slice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setOpenModalLogin } from "../../page/login/slice/login.slice";
+import { RootState } from "../../../root-reducer";
+import useTexts from "../../../hooks/use-text";
+
 const { Header } = Layout;
 
 const HeaderComponent: React.FC = () => {
   const dispatch = useDispatch();
+
   const showModal = (open: boolean) => {
     dispatch(setOpenModalShoppingCart(open));
   };
+
+  const showModalLogin = (open: boolean) => {
+    dispatch(setOpenModalLogin(open));
+  };
+
+  const showShoppingCart = useSelector(
+    (state: RootState) => state.store.showShoppingCart
+  );
+  const { texts, loading } = useTexts();
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
   return (
     <Header className="header">
       <MenuComponent
-        categorias={[
-          { categoria_id: 1, nombre: "Inicio", path: "/" },
-          {
-            categoria_id: 2,
-            nombre: "Deportes",
-            path: "/productos/deportes",
-            subcategorias: [
-              {
-                nombre: "zapatillas",
-                path: "/productos/deportes/zapatillas",
-                subcategoria_id: 1,
-              },
-              {
-                nombre: "camisetas de futbol",
-                path: "/productos/deportes/camisetas-futbol",
-                subcategoria_id: 2,
-              },
-            ],
-          },
-        ]}
       />
-      <div className="logo">Nombre de la Tienda</div>
+      <div className="logo">{texts.header['name_page']}</div>
       <div className="search">
         <ProductFilter
           products={[
@@ -61,12 +58,19 @@ const HeaderComponent: React.FC = () => {
           type="link"
           icon={<ShoppingCartOutlined />}
           size="large"
-          onClick={() => showModal(true)}
+          onClick={() => showModal(showShoppingCart)}
+          disabled={!showShoppingCart}
+          style={!showShoppingCart ? {display: 'none'} : {}}
         >
           <Badge count={2}>Carrito de compras</Badge>
         </Button>
-        <Button type="link" icon={<UserOutlined />} size="large">
-          Iniciar Sesión
+        <Button
+          type="link"
+          onClick={() => showModalLogin(true)}
+          icon={<UserOutlined />}
+          size="large"
+        >
+          {texts.header['session_on']}
         </Button>
       </div>
     </Header>
