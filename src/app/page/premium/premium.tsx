@@ -1,7 +1,7 @@
 // src/components/PhotoGallery.tsx
 import React, { useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { useStorage } from 'react-firebase-hooks/storage';
+import {  } from 'react-firebase-hooks/storage';
 import { db, storage } from '../../../firebase';
 
 const PhotoGallery: React.FC = () => {
