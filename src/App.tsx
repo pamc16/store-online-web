@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link, BrowserRouter } from "react-router-dom";
 import CustomLayout from "./app/layout/layout";
 import HomePage from "./app/page/store/store";
 import { Provider } from "react-redux";
@@ -28,6 +28,7 @@ const App: React.FC = () => {
   }
 
   return (
+    <BrowserRouter basename='/store'>
     <Provider store={store}>
       <Router>
         <CustomLayout>
@@ -66,6 +67,7 @@ const App: React.FC = () => {
         </CustomLayout>
       </Router>
     </Provider>
+    </BrowserRouter>
   );
 };
 
