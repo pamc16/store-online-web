@@ -11,7 +11,7 @@ const fontWeight = '100;400';
 
 // https://vitejs.dev/config/
 export default {
-	base: '/store',
+	base: '/landing/inicio',
 	envPrefix: 'REACT_',
 	server: {
 		port: 3000,

@@ -4,16 +4,16 @@
 		"outDir": "dist",
 
 		"paths": {
-			"@app/*": ["src/app/*"],
+			"@app/*": ["src/app/*"]
 		},
 
-		"target": "es2020",
-		"module": "es2022",
+		"target": "ESNext",
+		"module": "ESNext",
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 
 		"jsx": "react-jsx",
-		"lib": ["dom", "es2022"],
+		"lib": ["dom", "ESNext"],
 		"types": ["vite/client", "vitest/globals"],
 
 		"allowJs": false,
@@ -29,7 +29,7 @@
 		"removeComments": true,
 
 		"isolatedModules": true,
-		"esModuleInterop": false,
+		"esModuleInterop": true,
 		"importHelpers": false,
 		"allowSyntheticDefaultImports": true,
 
@@ -38,7 +38,12 @@
 		"noUnusedParameters": false,
 		"strictPropertyInitialization": false,
 
-		"skipLibCheck": true
+		"skipLibCheck": true,
+
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
+
+		"noEmit": true
 	},
 	"include": ["src", "vite.config.ts", "vitest.config.ts", "unocss.config.ts"]
 }

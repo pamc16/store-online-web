@@ -1,8 +1,7 @@
 // src/hooks/useTexts.tsx
 import { useState, useEffect } from 'react';
-import { db } from '../firebase';
+import { store } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
-import { useConfigFile } from './use-config-file';
 
 const useTexts = () => {
   const [texts, setTexts] = useState<{ [key: string]: any }>({});
@@ -13,7 +12,7 @@ const useTexts = () => {
 
     const fetchTexts = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'andrii-page'));
+        const querySnapshot = await getDocs(collection(store, 'andrii-page'));
         const textsData: { [key: string]: any } = {};
         querySnapshot.forEach((doc: any) => {
           textsData[doc.id] = doc.data();

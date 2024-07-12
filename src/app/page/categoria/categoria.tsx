@@ -26,7 +26,7 @@ const CategoriaPage = () => {
   ];
 
   return (
-    <div className="categoria-container">
+    <div className="categoria-container current">
       <h1>Categorías</h1>
       <Row gutter={[16, 16]} className="categoria-row">
         {categories.map((category) => (

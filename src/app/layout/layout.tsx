@@ -23,6 +23,8 @@ const CustomLayout: React.FC<CustomLayoutProps> = ({ children }) => {
     dispatch(decrement());
     dispatch(incrementByAmount(5));
   }, []);
+  useEffect(()=>{
+	},[])
   return (
     <Layout className="layout">
       <HeaderComponent />

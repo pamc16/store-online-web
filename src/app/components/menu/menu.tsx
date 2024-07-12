@@ -1,14 +1,10 @@
 import React, { useState } from "react";
-import { Layout, Menu, Input, Badge, Button } from "antd";
+import { Menu, Button } from "antd";
 import {
-  ShoppingCartOutlined,
-  UserOutlined,
   MenuOutlined,
-  HomeOutlined,
-  AppstoreOutlined,
 } from "@ant-design/icons";
 import "./menu.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useTexts from "../../../hooks/use-text";
 
 export interface CategoriaItems {
@@ -26,12 +22,9 @@ interface SubCategoriasItems {
   image?: string;
 }
 
-interface MenuComponentProps {
-  categorias: CategoriaItems[];
-}
-
 const MenuComponent: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -42,6 +35,15 @@ const MenuComponent: React.FC = () => {
   if (loading) {
     return <p>Loading...</p>;
   }
+
+  const items = texts.menu.list.map((item: any) => {
+		return {
+			key: item.key,
+      title: item.name,
+			label: <Link to={item.path}>{item.name}</Link>,
+		};
+	});
+
   return (
     <div className="container-menu">
       <Button
@@ -50,16 +52,7 @@ const MenuComponent: React.FC = () => {
         size="large"
       />
       <div className={`menu ${isMenuOpen ? "open" : ""}`}>
-        <Menu mode="vertical" theme="dark">
-          {texts.menu.list.map((item: any, index: any) => (
-            <Menu.Item
-              key={item.key}
-              title={item.name}
-            >
-              <Link to={item.path}>{item.name}</Link>
-            </Menu.Item>
-          ))}
-        </Menu>
+        <Menu mode="vertical" theme="dark" items={items} selectedKeys={[location.pathname]}/>
       </div>
     </div>
   );
