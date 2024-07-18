@@ -11,45 +11,31 @@ import ProductCatalog from './app/components/product/catalog/product-catalog';
 import ShoppingCartModal from './app/components/shopping-cart/modal/shopping-cart-modal';
 import LoginModal from './app/page/login/modal/login-modal';
 import LandingPage from './app/page/landing-page/landing-page';
-import { Layout, Menu } from 'antd';
-import { Content, Footer, Header } from 'antd/es/layout/layout';
+import { Content } from 'antd/es/layout/layout';
 import Features from './app/page/features/features';
 import Testimonials from './app/page/testimonials/testimonials';
 import Contact from './app/page/contact/contact';
 import { useDomain } from './hooks/use-domain';
 import useTexts from './hooks/use-text';
 import PremiumManager from 'app/page/premium/premum';
+import RegistroUsuario from 'app/components/create-user/create-user';
+import PasswordRecoveryForm from 'app/components/password-recovery/password-recovery';
+import UnauthorizedPage from 'app/page/unauthorized/unauthorized';
+import LoadingComponent from 'app/components/loading/loading';
 
 const App: React.FC = () => {
 	const domain = useDomain();
 	const { texts, loading } = useTexts();
 
 	if (loading) {
-		return <p>Loading...</p>;
+		return <LoadingComponent />;
 	}
-
-	const items = texts.menu.list.map((item: any) => {
-		return {
-			key: item.key,
-      title: item.name,
-			label: <Link to={item.path}>{item.name}</Link>,
-		};
-	});
 
 	return (
 		<BrowserRouter basename='/landing'>
 			<Provider store={store}>
 				<CustomLayout>
-					<Layout>
-						<Header style={{ zIndex: 1, width: '100%' }}>
-							<div className='logo' />
-							<Menu
-								theme='dark'
-								mode='horizontal'
-								items={items}
-							/>
-						</Header>
-						<Content style={{ marginTop: 20 }}>
+						<Content>
 							{/* <div className="sliding-container"> */}
 							<Routes>
 								<Route
@@ -76,16 +62,15 @@ const App: React.FC = () => {
 									element={<Testimonials />}
 								/>
 								<Route path='/contacto' element={<Contact />} />
+								<Route path='/registro-usuario' element={<RegistroUsuario />} />
+								<Route path='/registro-usuario/password-recovery' element={<PasswordRecoveryForm />} />
+								<Route path='/unauthorized' element={<UnauthorizedPage />} />
 							</Routes>
 							{/* </div> */}
 							
 							<ShoppingCartModal />
 							<LoginModal />
 						</Content>
-						<Footer style={{ textAlign: 'center' }}>
-							Ant Design ©2023 Created by Ant UED
-						</Footer>
-					</Layout>
 				</CustomLayout>
 			</Provider>
 		</BrowserRouter>

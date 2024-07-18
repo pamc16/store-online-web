@@ -1,43 +1,78 @@
 .layout {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: url('https://i1.wp.com/imgs.hipertextual.com/wp-content/uploads/2023/06/macOS-Sonoma-Wallpaper-Radial-Purple-1500x1500.jpg?strip=info&w=2000&ssl=1') no-repeat center center fixed;
+  /* Imagen de fondo */
+  background-size: cover;
+  /* Cubrir toda el área */
+}
+
+.header-layout {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.menu-layout {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 18px;
+}
+
+.layout .header {
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.layout .header .logo {
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.layout .content {
+  flex: 1;
+  padding: 20px;
+}
+
+.layout .footer p {
+  margin: 0;
+}
+
+.layout .footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.layout .footer a:hover {
+  text-decoration: underline;
+}
+
+.site-layout-content {
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.8);
+  /* Fondo blanco semi-transparente */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .site-layout-content {
+    padding: 16px;
+  }
+
+  .header {
     flex-direction: column;
-    min-height: 100vh;
   }
-  
-  .layout .header {
-    background-color: #001529;
-    color: #fff;
-    padding: 20px;
-  }
-  
-  .layout .header .logo {
-    color: #fff;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  .layout .content {
-    flex: 1;
-    padding: 20px;
-  }
-  
-  .layout .footer {
-    background-color: #001529;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .layout .footer p {
-    margin: 0;
-  }
-  
-  .layout .footer a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .layout .footer a:hover {
-    text-decoration: underline;
-  }
-  
+}

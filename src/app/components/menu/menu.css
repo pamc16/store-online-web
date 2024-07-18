@@ -17,4 +17,51 @@
 
   .container-menu {
     display: flex;
+    margin-right: 10px;
+  }
+
+  .drawer .drawer-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .drawer .user-info {
+    margin-left: 16px;
+  }
+  
+  .drawer .user-name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .drawer .logout-button {
+    margin-top: 8px;
+  }
+
+  .drawer-button {
+    background-color: #001529; /* Color de fondo personalizado */
+    border: none;
+    color: white; /* Color del texto */
+    padding: 10px 20px; /* Espaciado interior */
+    font-size: 18px; /* Tamaño de la fuente */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    transition: all 0.3s ease; /* Transición para efectos */
+  }
+  
+  .drawer-button:hover {
+    background-color: #1890ff; /* Color de fondo al pasar el ratón */
+    color: white; /* Color del texto al pasar el ratón */
+    transform: translateY(-2px); /* Efecto de desplazamiento hacia arriba */
+  }
+
+  @media (max-width: 768px) {
+    .site-layout-content {
+      padding: 16px;
+    }
+  
+    .header {
+      flex-direction: column;
+    }
   }

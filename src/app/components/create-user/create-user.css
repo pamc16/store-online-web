@@ -1,0 +1,29 @@
+/* RegistroUsuario.css */
+  .registro-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .registro-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .register-form-button {
+    width: 100%;
+  }
+  
+  .register-form-button {
+    margin-top: 10px;
+  }
+  
+  .site-form-item-icon {
+    color: rgba(0,0,0,.25);
+  }
+  
+  

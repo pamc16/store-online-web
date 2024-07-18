@@ -23,8 +23,10 @@ const LoginModal: React.FC = () => {
         title="Inicio de sesión"
         onOk={handleClose}
         onCancel={handleClose}
-        destroyOnClose={true}
+        destroyOnClose={false}
         style={{zIndex: 10000}}
+        okButtonProps={{ style: { display: 'none' } }} // Oculta el botón Ok
+        cancelButtonProps={{ style: { display: 'none' } }} // Oculta el botón Cancel
       >
         <Login />{" "}
       </Modal>
