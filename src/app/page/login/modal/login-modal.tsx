@@ -20,7 +20,6 @@ const LoginModal: React.FC = () => {
     <div>
       <Modal
         open={openModal}
-        title="Inicio de sesión"
         onOk={handleClose}
         onCancel={handleClose}
         destroyOnClose={false}

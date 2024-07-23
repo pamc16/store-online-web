@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu, Button, Drawer, Avatar } from 'antd';
 import { LogoutOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons';
 import './menu.css';
 import { Link, useNavigate } from 'react-router-dom';
 import useTexts from '../../../hooks/use-text';
-import { logoutUser } from 'services/auth.service';
+import { getUserByEmail, logoutUser } from 'services/auth.service';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAccessToken } from 'app/page/login/slice/login.slice';
+import {
+	setAccessToken,
+	useLoginSelector,
+} from 'app/page/login/slice/login.slice';
 import { RootState } from 'root-reducer';
 import LoadingComponent from '../loading/loading';
 
@@ -29,9 +32,7 @@ const MenuComponent: React.FC = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [visible, setVisible] = useState(false);
-  const accessToken = useSelector(
-		(state: RootState) => state.login.accessToken
-	  );
+	const { accessToken, user } = useLoginSelector();
 
 	const showDrawer = () => {
 		setVisible(true);
@@ -54,7 +55,7 @@ const MenuComponent: React.FC = () => {
 		}
 	};
 
-	const { texts, loading } = useTexts();
+	const { texts, loading } = useTexts('andrii-page');
 
 	if (loading) {
 		return <LoadingComponent />;
@@ -67,8 +68,6 @@ const MenuComponent: React.FC = () => {
 			label: <Link to={item.path}>{item.name}</Link>,
 		};
 	});
-
-  
 
 	return (
 		<div className='container-menu'>
@@ -86,12 +85,26 @@ const MenuComponent: React.FC = () => {
 				className='drawer'
 			>
 				<div className='drawer-header'>
-					<Avatar size={64} icon={<UserOutlined />} />
+					{accessToken && (
+						<Avatar
+							size={64}
+							icon={<UserOutlined />}
+							src={user.photo}
+						/>
+					)}
 					<div className='user-info'>
-						<div className='user-name'>John Doe</div>
+						{accessToken && (
+							<div className='user-name'>{`${user.firstName} ${user.lastName}`}</div>
+						)}
 						<Button
 							onClick={() => handleAuth()}
-							icon={accessToken ? <LogoutOutlined /> : <UserOutlined />}
+							icon={
+								accessToken ? (
+									<LogoutOutlined />
+								) : (
+									<UserOutlined />
+								)
+							}
 							className='logout-button'
 						>
 							{accessToken ? 'Cerrar Sesión' : 'Iniciar Sesión'}

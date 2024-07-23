@@ -25,7 +25,7 @@ import LoadingComponent from 'app/components/loading/loading';
 
 const App: React.FC = () => {
 	const domain = useDomain();
-	const { texts, loading } = useTexts();
+	const { texts, loading } = useTexts('andrii-page');
 
 	if (loading) {
 		return <LoadingComponent />;

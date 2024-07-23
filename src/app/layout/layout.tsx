@@ -29,7 +29,7 @@ const CustomLayout: React.FC<CustomLayoutProps> = ({ children }) => {
 		dispatch(incrementByAmount(5));
 	}, [dispatch]);
 	useEffect(() => {}, []);
-	const { texts, loading } = useTexts();
+	const { texts, loading } = useTexts('andrii-page');
 
 	if (loading) {
 		return <LoadingComponent />;

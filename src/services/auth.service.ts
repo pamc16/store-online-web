@@ -20,6 +20,7 @@ const getUserByEmail = async (email: string) => {
   try {
     const userRef = doc(store, 'users', email); // 'users' es la colección donde tienes los usuarios
     const userSnap = await getDoc(userRef);
+    console.log(userRef)
     
     if (userSnap.exists()) {
       return userSnap.data();

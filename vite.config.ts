@@ -27,7 +27,7 @@ export default {
 		sourcemap: true,
 		emptyOutDir: true,
 		minify: true,
-		target: 'es2022',
+		target: 'ESNext',
 		rollupOptions: {
 			output: {
 				manualChunks: {

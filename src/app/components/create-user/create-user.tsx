@@ -7,7 +7,7 @@ import {
 	UploadOutlined,
 } from '@ant-design/icons';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
 import './create-user.css';
 import { storage, store } from 'firebase';
 import { Link, useNavigate } from 'react-router-dom';
@@ -24,7 +24,7 @@ const RegistroUsuario: React.FC = () => {
 	const onFinish = async (values: any) => {
 		setLoading(true);
 		try {
-			const docRef = await addDoc(collection(store, 'users'), {
+			await setDoc(doc(store, "users", values.email), {
 				rut: values.rut,
 				firstName: values.firstName,
 				lastName: values.lastName,

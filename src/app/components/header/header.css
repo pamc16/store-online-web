@@ -37,3 +37,12 @@
   .css-dev-only-do-not-override-1m62vyb {
     color: #1890ff
   }
+
+  .ant-avatar {
+    margin-bottom: inherit !important;
+}
+
+.user-name {
+  margin-right: 10px;
+  margin-left: 10px;
+}
