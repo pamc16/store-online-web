@@ -6,12 +6,14 @@ interface InitialState {
 	accessToken: string;
 	openModalLogin: boolean;
 	user: any;
+	loadingAuth: boolean;
 }
 
 const initialState: InitialState = {
 	accessToken: '',
 	openModalLogin: false,
 	user: {},
+	loadingAuth: false,
 };
 
 const loginSlice = createSlice({
@@ -27,6 +29,9 @@ const loginSlice = createSlice({
 		setUser(state: InitialState, action: PayloadAction<any>) {
 			state.user = action.payload;
 		},
+		setLoading(state: InitialState, action: PayloadAction<boolean>) {
+			state.loadingAuth = action.payload;
+		},
 	},
 });
 
@@ -35,7 +40,7 @@ export const useLoginSelector = () =>
 		({ [loginSlice.name]: slice }) => slice,
 	);
 
-export const { setAccessToken, setOpenModalLogin, setUser } =
+export const { setAccessToken, setOpenModalLogin, setUser, setLoading } =
 	loginSlice.actions;
 
 export default loginSlice.reducer;

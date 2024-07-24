@@ -10,18 +10,23 @@ import useTexts from '../../../hooks/use-text';
 import { type RootState } from '../../../root-reducer';
 import { setOpenModalShoppingCart } from '../../layout/slices/layout.slice';
 import {
+	setAccessToken,
 	setOpenModalLogin,
 	useLoginSelector,
 } from '../../page/login/slice/login.slice';
 import LoadingComponent from '../loading/loading';
-import MenuComponent from '../menu/menu';
+import MenuComponent, { handleAuth } from '../menu/menu';
 import ProductFilter from '../product/filter-product';
 import './header.css';
+import { useNavigate } from 'react-router-dom';
+
+const bearerToken = localStorage.getItem('accessToken') as string;
 
 const { Header } = Layout;
 
 const HeaderComponent: React.FC = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const { accessToken, user } = useLoginSelector();
 
@@ -29,8 +34,12 @@ const HeaderComponent: React.FC = () => {
 		dispatch(setOpenModalShoppingCart(open));
 	};
 
-	const showModalLogin = (open: boolean) => {
-		dispatch(setOpenModalLogin(open));
+	const handleLogin = (open: boolean) => {
+		if (bearerToken ?? accessToken) {
+			handleAuth(dispatch, navigate);
+		} else {
+			dispatch(setOpenModalLogin(open));
+		}
 	};
 
 	const showShoppingCart = useSelector(
@@ -78,11 +87,13 @@ const HeaderComponent: React.FC = () => {
 				</Button>
 				<Button
 					icon={accessToken ? <LogoutOutlined /> : <UserOutlined />}
-					onClick={() => showModalLogin(true)}
+					onClick={() => handleLogin(true)}
 					size='large'
 					type='link'
 				>
-					{accessToken ? 'Cerrar Sesión' : texts.header['session_on']}
+					{accessToken
+						? texts.header['session_off']
+						: texts.header['session_on']}
 				</Button>
 			</div>
 		</Header>

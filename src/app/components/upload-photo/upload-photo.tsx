@@ -1,4 +1,4 @@
-import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Upload, message } from 'antd';
 import { type RcFile, type UploadFile } from 'antd/es/upload';
 import { storage, store } from 'firebase';
@@ -6,6 +6,17 @@ import { addDoc, collection } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React, { useState } from 'react';
 import './upload-photo.css';
+import { setPreviewImage, setPreviewVisible } from 'app/page/premium/slice/premium.slice';
+import { useDispatch } from 'react-redux';
+
+const getBase64 = (file: File) => {
+	return new Promise<string>((resolve, reject) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = () => resolve(reader.result as string);
+		reader.onerror = (error) => reject(error);
+	});
+};
 
 interface UploadPhotoProps {
 	onPhotoUploaded: (photo: { description: string; url: string }) => void;
@@ -15,6 +26,9 @@ const UploadPhoto: React.FC<UploadPhotoProps> = ({ onPhotoUploaded }) => {
 	const [form] = Form.useForm();
 	const [imageFile, setImageFile] = useState<File | null>(null);
 	const [uploading, setUploading] = useState<boolean>(false);
+	const dispatch = useDispatch();
+
+	
 	const handleCustomRequest = async (options: {
 		file: RcFile;
 		onSuccess: (file: UploadFile<any>) => void;

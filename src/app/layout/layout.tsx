@@ -1,15 +1,31 @@
-import { Divider, Layout, Menu, Space } from 'antd';
+import { Divider, Layout, Menu } from 'antd';
 import LoadingComponent from 'app/components/loading/loading';
 import useTexts from 'hooks/use-text';
 import React, { type ReactNode, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { type RootState } from '../../root-reducer';
-import Breadcrumbs from '../components/breadcrumb/breadcrumb';
 import FooterComponent from '../components/footer/footer';
 import HeaderComponent from '../components/header/header';
-import { decrement, increment, incrementByAmount } from './slices/layout.slice';
+import {
+	decrement,
+	increment,
+	incrementByAmount,
+	setSelectedTab,
+	useLayoutSelector,
+} from './slices/layout.slice';
 import './layout.css';
+import { AppDispatch } from 'store';
+import { jwtDecode } from 'jwt-decode';
+import { setAccessToken, setUser } from 'app/page/login/slice/login.slice';
+import { getUserByEmail } from 'services/auth.service';
+
+const bearerToken = localStorage.getItem('accessToken') as string;
+let email: string;
+if (bearerToken) {
+	const tokenDecoded: any = jwtDecode(bearerToken);
+	email = tokenDecoded.email;
+}
+
 
 const { Content } = Layout;
 
@@ -17,11 +33,13 @@ interface CustomLayoutProps {
 	children: ReactNode;
 }
 
+export const handleClickMenu = (menu: any, dispatch: AppDispatch) => {
+	dispatch(setSelectedTab(menu.key as string));
+};
+
 const CustomLayout: React.FC<CustomLayoutProps> = ({ children }) => {
-	const categorias = useSelector(
-		(state: RootState) => state.layout.categorias,
-	);
 	const dispatch = useDispatch();
+	const { selectedTab } = useLayoutSelector();
 
 	useEffect(() => {
 		dispatch(increment());
@@ -29,6 +47,16 @@ const CustomLayout: React.FC<CustomLayoutProps> = ({ children }) => {
 		dispatch(incrementByAmount(5));
 	}, [dispatch]);
 	useEffect(() => {}, []);
+
+	useEffect(() => {
+		if (bearerToken) {
+			dispatch(setAccessToken(bearerToken));
+			getUserByEmail(email).then((user) => {
+				dispatch(setUser(user));
+				dispatch(setSelectedTab('premium'));
+			});
+		}
+	}, []);
 	const { loading, texts } = useTexts('andrii-page');
 
 	if (loading) {
@@ -42,6 +70,8 @@ const CustomLayout: React.FC<CustomLayoutProps> = ({ children }) => {
 			title: item.name,
 		};
 	});
+
+
 	return (
 		<Layout className='layout'>
 			<div className='header-layout'>
@@ -51,6 +81,11 @@ const CustomLayout: React.FC<CustomLayoutProps> = ({ children }) => {
 					items={items}
 					mode='horizontal'
 					theme='dark'
+					defaultSelectedKeys={[selectedTab]}
+					defaultActiveFirst={true}
+					selectable={true}
+					selectedKeys={[selectedTab]}
+					onClick={(menu) => handleClickMenu(menu, dispatch)}
 				/>
 			</div>
 			<Divider style={{ margin: '64px 0' }} />

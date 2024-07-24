@@ -1,17 +1,49 @@
 import { LogoutOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Button, Drawer, Menu } from 'antd';
+import { Avatar, Button, Drawer, Menu, notification } from 'antd';
 import {
 	setAccessToken,
+	setOpenModalLogin,
 	useLoginSelector,
 } from 'app/page/login/slice/login.slice';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { RootState } from 'root-reducer';
-import { getUserByEmail, logoutUser } from 'services/auth.service';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
+import { logoutUser } from 'services/auth.service';
 import useTexts from '../../../hooks/use-text';
 import LoadingComponent from '../loading/loading';
 import './menu.css';
+import { useLayoutSelector } from 'app/layout/slices/layout.slice';
+import { handleClickMenu } from 'app/layout/layout';
+import { AppDispatch } from 'store';
+
+const bearerToken = localStorage.getItem('accessToken') as string;
+
+export const handleAuth = async (
+	dispatch: AppDispatch,
+	navigate: NavigateFunction,
+	onClose?: () => void,
+) => {
+	try {
+		if (bearerToken) {
+			await logoutUser();
+			// manejar éxito del cierre de sesión, redireccionar, mostrar mensaje, etc.
+			dispatch(setAccessToken(''));
+			localStorage.clear();
+			onClose && onClose();
+			navigate('/login');
+			notification.success({
+				message: 'Cerrando Sesión',
+				description: 'Sesión cerrada exitosamente',
+			});
+		} else {
+			dispatch(setOpenModalLogin(true));
+			onClose && onClose();
+		}
+	} catch (error) {
+		// manejar errores, como problemas de red, etc.
+		console.error('Error al cerrar sesión:', error);
+	}
+};
 
 export interface CategoriaItems {
 	categoria_id: number;
@@ -33,6 +65,7 @@ const MenuComponent: React.FC = () => {
 	const navigate = useNavigate();
 	const [visible, setVisible] = useState(false);
 	const { accessToken, user } = useLoginSelector();
+	const { selectedTab } = useLayoutSelector();
 
 	const showDrawer = () => {
 		setVisible(true);
@@ -40,19 +73,6 @@ const MenuComponent: React.FC = () => {
 
 	const onClose = () => {
 		setVisible(false);
-	};
-
-	const handleAuth = async () => {
-		try {
-			await logoutUser();
-			// manejar éxito del cierre de sesión, redireccionar, mostrar mensaje, etc.
-			dispatch(setAccessToken(''));
-			onClose();
-			navigate('/login');
-		} catch (error) {
-			// manejar errores, como problemas de red, etc.
-			console.error('Error al cerrar sesión:', error);
-		}
 	};
 
 	const { loading, texts } = useTexts('andrii-page');
@@ -82,7 +102,7 @@ const MenuComponent: React.FC = () => {
 				onClose={onClose}
 				placement='left'
 				title='Menú'
-				visible={visible}
+				open={visible}
 			>
 				<div className='drawer-header'>
 					{accessToken && (
@@ -105,16 +125,20 @@ const MenuComponent: React.FC = () => {
 									<UserOutlined />
 								)
 							}
-							onClick={() => handleAuth()}
+							onClick={() =>
+								handleAuth(dispatch, navigate, onClose)
+							}
 						>
 							{accessToken ? 'Cerrar Sesión' : 'Iniciar Sesión'}
 						</Button>
 					</div>
 				</div>
 				<Menu
-					defaultSelectedKeys={['1']}
+					defaultSelectedKeys={[selectedTab]}
+					selectedKeys={[selectedTab]}
 					items={items}
 					mode='vertical'
+					onClick={(menu) => handleClickMenu(menu, dispatch)}
 				/>
 			</Drawer>
 		</div>

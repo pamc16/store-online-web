@@ -3,7 +3,7 @@ import fonts from 'vite-plugin-webfont-dl';
 import svg from 'vite-plugin-svgr';
 import { createHtmlPlugin as html } from 'vite-plugin-html';
 import { checker } from 'vite-plugin-checker';
-import { normalizePath, type UserConfigExport } from 'vite';
+import { type UserConfigExport } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 
 const fontFamily = 'Catamaran';

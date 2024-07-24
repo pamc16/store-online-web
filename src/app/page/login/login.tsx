@@ -1,6 +1,6 @@
 // src/components/Login.tsx
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, notification } from 'antd';
 import LoadingComponent from 'app/components/loading/loading';
 import useTexts from 'hooks/use-text';
 import React from 'react';
@@ -9,17 +9,23 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getUserByEmail, loginUser } from 'services/auth.service';
 import {
 	setAccessToken,
+	setLoading,
 	setOpenModalLogin,
 	setUser,
+	useLoginSelector,
 } from './slice/login.slice';
 import './login.css';
+import { setSelectedTab } from 'app/layout/slices/layout.slice';
 
 const Login: React.FC = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
+	const { loadingAuth } = useLoginSelector();
+
 	const onFinish = async (values: any) => {
 		try {
+			dispatch(setLoading(true));
 			const user: any = await loginUser(values.email, values.password);
 			// manejar éxito del inicio de sesión, redireccionar, mostrar mensaje, etc.
 			console.log('Inicio de sesión exitoso:', user);
@@ -28,12 +34,23 @@ const Login: React.FC = () => {
 			dispatch(setAccessToken(user.accessToken));
 			const users = await getUserByEmail(values.email);
 			dispatch(setUser(users));
-			navigate('/inicio');
+			dispatch(setSelectedTab('premium'));
+			localStorage.setItem('accessToken', user.accessToken);
+			notification.success({
+				description: `Sesión iniciada con éxito`,
+				message: 'Éxito',
+			});
+			navigate('/premium');
 		} catch (error) {
 			// manejar errores, como credenciales incorrectas, cuenta no existente, etc.
-			console.error('Error al iniciar sesión:', error);
-			navigate('/registro-usuario');
+			notification.error({
+				description: 'Usuario no existe',
+				message: 'Error al iniciar sesión',
+			});
 			dispatch(setOpenModalLogin(false));
+			navigate('/registro-usuario');
+		} finally {
+			dispatch(setLoading(false));
 		}
 	};
 
@@ -43,7 +60,7 @@ const Login: React.FC = () => {
 
 	const { loading, texts } = useTexts('login');
 
-	if (loading) {
+	if (loading || loadingAuth) {
 		return <LoadingComponent />;
 	}
 
@@ -95,7 +112,7 @@ const Login: React.FC = () => {
 					<Link
 						className='login-form-forgot'
 						onClick={() => closeModalLogin()}
-						to='/registro-usuario/password-recovery'
+						to={link.list[0].to}
 					>
 						{link.list[0].text}
 					</Link>
@@ -113,7 +130,7 @@ const Login: React.FC = () => {
 					{body.not_account}{' '}
 					<Link
 						onClick={() => closeModalLogin()}
-						to={'/registro-usuario'}
+						to={link.list[1].to}
 					>
 						{link.list[1].text}
 					</Link>
