@@ -1,33 +1,33 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
-import { RootState } from "root-reducer";
+import { type RootState } from 'root-reducer';
 
 interface InitialState {
-  openModalLogin: boolean;
-  accessToken: string;
-  user: any;
+	accessToken: string;
+	openModalLogin: boolean;
+	user: any;
 }
 
 const initialState: InitialState = {
-    openModalLogin: false,
-    accessToken: '',
-    user: {},
+	accessToken: '',
+	openModalLogin: false,
+	user: {},
 };
 
 const loginSlice = createSlice({
-  name: "login",
-  initialState,
-  reducers: {
-    setOpenModalLogin(state: InitialState, action: PayloadAction<boolean>) {
-      state.openModalLogin = action.payload;
-    },
-    setAccessToken(state: InitialState, action: PayloadAction<string>) {
-      state.accessToken = action.payload;
-    },
-    setUser(state: InitialState, action: PayloadAction<any>) {
-      state.user = action.payload;
-    },
-  },
+	initialState,
+	name: 'login',
+	reducers: {
+		setAccessToken(state: InitialState, action: PayloadAction<string>) {
+			state.accessToken = action.payload;
+		},
+		setOpenModalLogin(state: InitialState, action: PayloadAction<boolean>) {
+			state.openModalLogin = action.payload;
+		},
+		setUser(state: InitialState, action: PayloadAction<any>) {
+			state.user = action.payload;
+		},
+	},
 });
 
 export const useLoginSelector = () =>
@@ -35,10 +35,7 @@ export const useLoginSelector = () =>
 		({ [loginSlice.name]: slice }) => slice,
 	);
 
-export const {
-  setOpenModalLogin,
-  setAccessToken,
-  setUser,
-} = loginSlice.actions;
+export const { setAccessToken, setOpenModalLogin, setUser } =
+	loginSlice.actions;
 
 export default loginSlice.reducer;

@@ -1,15 +1,25 @@
 {
-	"printWidth": 80,
-	"tabWidth": 4,
-	"useTabs": true,
-	"semi": true,
-	"singleQuote": true,
-	"jsxSingleQuote": true,
-	"trailingComma": "all",
-	"bracketSpacing": true,
-	"bracketSameLine": false,
+	"$schema": "https://json.schemastore.org/prettierrc.json",
 	"arrowParens": "always",
+	"bracketSameLine": false,
+	"bracketSpacing": true,
 	"endOfLine": "auto",
 	"htmlWhitespaceSensitivity": "ignore",
-	"quoteProps": "as-needed"
+	"jsxSingleQuote": true,
+	"printWidth": 80,
+	"quoteProps": "as-needed",
+	"semi": true,
+	"singleQuote": true,
+	"tabWidth": 4,
+	"trailingComma": "all",
+	"useTabs": true,
+	"singleAttributePerLine": false,
+	"overrides": [
+		{
+			"files": ["tsconfig.json", ".stylelintrc"],
+			"options": {
+				"trailingComma": "none"
+			}
+		}
+	]
 }

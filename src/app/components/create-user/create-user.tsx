@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, Upload, message } from 'antd';
 import {
 	LockOutlined,
 	MailOutlined,
 	PhoneOutlined,
 	UploadOutlined,
 } from '@ant-design/icons';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
-import './create-user.css';
-import { storage, store } from 'firebase';
-import { Link, useNavigate } from 'react-router-dom';
+import { Button, Form, Input, Upload, message } from 'antd';
 import { setOpenModalLogin } from 'app/page/login/slice/login.slice';
+import { storage, store } from 'firebase';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from 'services/auth.service';
+import './create-user.css';
 
 const RegistroUsuario: React.FC = () => {
 	const [loading, setLoading] = useState(false);
@@ -24,29 +24,29 @@ const RegistroUsuario: React.FC = () => {
 	const onFinish = async (values: any) => {
 		setLoading(true);
 		try {
-			await setDoc(doc(store, "users", values.email), {
-				rut: values.rut,
+			await setDoc(doc(store, 'users', values.email), {
+				email: values.email,
 				firstName: values.firstName,
 				lastName: values.lastName,
-				username: values.username,
-				email: values.email,
 				phone: values.phone,
 				photo: imageUrl,
+				rut: values.rut,
+				username: values.username,
 			});
 			message.success('Usuario registrado exitosamente');
 			navigate('/inicio');
-		} catch (e) {
-			console.error('Error adding document: ', e);
+		} catch (error) {
+			console.error('Error adding document:', error);
 			message.error('Error al registrar el usuario');
 		}
 		try {
 			const user = await registerUser(values.email, values.password);
-			// Manejar éxito del registro, redireccionar, mostrar mensaje, etc.
+			// manejar éxito del registro, redireccionar, mostrar mensaje, etc.
 			console.log('Usuario registrado:', user);
-		  } catch (error) {
-			// Manejar errores, como correo ya registrado, contraseña débil, etc.
+		} catch (error) {
+			// manejar errores, como correo ya registrado, contraseña débil, etc.
 			console.error('Error al registrar usuario:', error);
-		  }
+		}
 		setLoading(false);
 	};
 
@@ -74,11 +74,11 @@ const RegistroUsuario: React.FC = () => {
 	};
 
 	return (
-		<Form className='registro-form' onFinish={onFinish} layout='vertical'>
+		<Form className='registro-form' layout='vertical' onFinish={onFinish}>
 			<Form.Item
 				name='rut'
 				rules={[
-					{ required: true, message: 'Por favor ingrese su RUT!' },
+					{ message: 'Por favor ingrese su RUT!', required: true },
 				]}
 			>
 				<Input placeholder='RUT' />
@@ -86,7 +86,7 @@ const RegistroUsuario: React.FC = () => {
 			<Form.Item
 				name='firstName'
 				rules={[
-					{ required: true, message: 'Por favor ingrese su nombre!' },
+					{ message: 'Por favor ingrese su nombre!', required: true },
 				]}
 			>
 				<Input placeholder='Nombre' />
@@ -95,8 +95,8 @@ const RegistroUsuario: React.FC = () => {
 				name='lastName'
 				rules={[
 					{
-						required: true,
 						message: 'Por favor ingrese su apellido!',
+						required: true,
 					},
 				]}
 			>
@@ -106,8 +106,8 @@ const RegistroUsuario: React.FC = () => {
 				name='username'
 				rules={[
 					{
-						required: true,
 						message: 'Por favor ingrese su nombre de usuario!',
+						required: true,
 					},
 				]}
 			>
@@ -117,54 +117,54 @@ const RegistroUsuario: React.FC = () => {
 				name='email'
 				rules={[
 					{
-						required: true,
 						message: 'Por favor ingrese su correo electrónico!',
+						required: true,
 					},
-					{ type: 'email', message: 'Ingrese un correo válido' },
+					{ message: 'Ingrese un correo válido', type: 'email' },
 				]}
 			>
 				<Input
-					prefix={<MailOutlined className='site-form-item-icon' />}
 					placeholder='Correo Electrónico'
+					prefix={<MailOutlined className='site-form-item-icon' />}
 				/>
 			</Form.Item>
 			<Form.Item
 				name='password'
 				rules={[
 					{
-						required: true,
 						message: 'Por favor ingrese su contraseña!',
+						required: true,
 					},
 				]}
 			>
 				<Input.Password
-					prefix={<LockOutlined className='site-form-item-icon' />}
 					placeholder='Contraseña'
+					prefix={<LockOutlined className='site-form-item-icon' />}
 				/>
 			</Form.Item>
 			<Form.Item
 				name='phone'
 				rules={[
 					{
-						required: true,
 						message: 'Por favor ingrese su teléfono!',
+						required: true,
 					},
 				]}
 			>
 				<Input
-					prefix={<PhoneOutlined className='site-form-item-icon' />}
 					placeholder='Teléfono'
+					prefix={<PhoneOutlined className='site-form-item-icon' />}
 				/>
 			</Form.Item>
 			<Form.Item
 				label='Foto'
-				valuePropName='fileList'
 				rules={[
 					{
-						required: true,
 						message: 'Por favor sube tu foto de perfil!',
+						required: true,
 					},
 				]}
+				valuePropName='fileList'
 			>
 				<Upload
 					beforeUpload={(file) => {
@@ -177,24 +177,24 @@ const RegistroUsuario: React.FC = () => {
 				</Upload>
 				{imageUrl && (
 					<img
-						src={imageUrl}
 						alt='avatar'
-						style={{ width: '100px', marginTop: '10px' }}
+						src={imageUrl}
+						style={{ marginTop: '10px', width: '100px' }}
 					/>
 				)}
 			</Form.Item>
 			<Form.Item>
 				<Button
-					type='primary'
-					htmlType='submit'
 					className='register-form-button'
+					htmlType='submit'
+					type='primary'
 				>
 					Registrarse
 				</Button>
 			</Form.Item>
 			<Form.Item>
 				¿Ya tienes una cuenta?{' '}
-				<Link to={'/registro-usuario'} onClick={() => modalLogin(true)}>
+				<Link onClick={() => modalLogin(true)} to={'/registro-usuario'}>
 					Iniciar Sesión
 				</Link>
 			</Form.Item>

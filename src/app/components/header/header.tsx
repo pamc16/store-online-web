@@ -1,22 +1,22 @@
-import React from 'react';
-import { Layout, Badge, Button, Avatar } from 'antd';
 import {
 	LogoutOutlined,
 	ShoppingCartOutlined,
 	UserOutlined,
 } from '@ant-design/icons';
-import './header.css';
-import ProductFilter from '../product/filter-product';
-import MenuComponent from '../menu/menu';
-import { setOpenModalShoppingCart } from '../../layout/slices/layout.slice';
+import { Avatar, Badge, Button, Layout } from 'antd';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import useTexts from '../../../hooks/use-text';
+import { type RootState } from '../../../root-reducer';
+import { setOpenModalShoppingCart } from '../../layout/slices/layout.slice';
 import {
 	setOpenModalLogin,
 	useLoginSelector,
 } from '../../page/login/slice/login.slice';
-import { RootState } from '../../../root-reducer';
-import useTexts from '../../../hooks/use-text';
 import LoadingComponent from '../loading/loading';
+import MenuComponent from '../menu/menu';
+import ProductFilter from '../product/filter-product';
+import './header.css';
 
 const { Header } = Layout;
 
@@ -36,7 +36,7 @@ const HeaderComponent: React.FC = () => {
 	const showShoppingCart = useSelector(
 		(state: RootState) => state.store.showShoppingCart,
 	);
-	const { texts, loading } = useTexts('andrii-page');
+	const { loading, texts } = useTexts('andrii-page');
 
 	if (loading) {
 		return <LoadingComponent />;
@@ -55,28 +55,32 @@ const HeaderComponent: React.FC = () => {
 						'Producto 3',
 						'Producto 4',
 						'Producto 5',
-						// Agrega más productos según sea necesario
+						// agrega más productos según sea necesario
 					]}
 				/>
 			</div>
-			{accessToken && <Avatar size={64} icon={<UserOutlined />} src={user.photo} />}
-			{accessToken && <div className='user-name'>{`${user.firstName} ${user.lastName}`}</div>}
+			{accessToken && (
+				<Avatar icon={<UserOutlined />} size={64} src={user.photo} />
+			)}
+			{accessToken && (
+				<div className='user-name'>{`${user.firstName} ${user.lastName}`}</div>
+			)}
 			<div className='actions'>
 				<Button
-					type='link'
-					icon={<ShoppingCartOutlined />}
-					size='large'
-					onClick={() => showModal(showShoppingCart)}
 					disabled={!showShoppingCart}
-					style={!showShoppingCart ? { display: 'none' } : {}}
+					icon={<ShoppingCartOutlined />}
+					onClick={() => showModal(showShoppingCart)}
+					size='large'
+					style={showShoppingCart ? {} : { display: 'none' }}
+					type='link'
 				>
 					<Badge count={2}>Carrito de compras</Badge>
 				</Button>
 				<Button
-					type='link'
-					onClick={() => showModalLogin(true)}
 					icon={accessToken ? <LogoutOutlined /> : <UserOutlined />}
+					onClick={() => showModalLogin(true)}
 					size='large'
+					type='link'
 				>
 					{accessToken ? 'Cerrar Sesión' : texts.header['session_on']}
 				</Button>

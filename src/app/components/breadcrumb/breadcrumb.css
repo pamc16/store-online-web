@@ -1,20 +1,19 @@
 .breadcrumbs {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    margin-top: 75px;
-  }
-  
-  .breadcrumbs .ant-breadcrumb-separator {
-    margin: 0 8px;
-  }
-  
-  .breadcrumbs .ant-breadcrumb-link {
-    color: #1890ff;
-    text-decoration: none;
-  }
-  
-  .breadcrumbs .ant-breadcrumb-link:hover {
-    text-decoration: underline;
-  }
-  
+	display: flex;
+	align-items: center;
+	margin-top: 75px;
+	font-size: 14px;
+}
+
+.breadcrumbs .ant-breadcrumb-separator {
+	margin: 0 8px;
+}
+
+.breadcrumbs .ant-breadcrumb-link {
+	color: #1890ff;
+	text-decoration: none;
+}
+
+.breadcrumbs .ant-breadcrumb-link:hover {
+	text-decoration: underline;
+}

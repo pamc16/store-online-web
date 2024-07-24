@@ -1,7 +1,7 @@
 // src/hooks/useTexts.tsx
-import { useState, useEffect } from 'react';
-import { store } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { store } from '../firebase';
 
 const useTexts = (nameCollection: string) => {
 	const [texts, setTexts] = useState<{ [key: string]: any }>({});
@@ -30,7 +30,7 @@ const useTexts = (nameCollection: string) => {
 		fetchTexts();
 	}, []);
 
-	return { texts, loading };
+	return { loading, texts };
 };
 
 export default useTexts;

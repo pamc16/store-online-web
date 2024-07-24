@@ -1,31 +1,31 @@
+import { Content } from 'antd/es/layout/layout';
+import RegistroUsuario from 'app/components/create-user/create-user';
+import LoadingComponent from 'app/components/loading/loading';
+import PasswordRecoveryForm from 'app/components/password-recovery/password-recovery';
+import PremiumManager from 'app/page/premium/premum';
+import UnauthorizedPage from 'app/page/unauthorized/unauthorized';
 import React from 'react';
-import './App.css';
-import { Route, Routes, Link, BrowserRouter } from 'react-router-dom';
-import CustomLayout from './app/layout/layout';
-import HomePage from './app/page/store/store';
 import { Provider } from 'react-redux';
-import store from './store';
-import ShoppingCart from './app/components/shopping-cart/shopping-cart';
-import Login from './app/page/login/login';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import ProductCatalog from './app/components/product/catalog/product-catalog';
 import ShoppingCartModal from './app/components/shopping-cart/modal/shopping-cart-modal';
-import LoginModal from './app/page/login/modal/login-modal';
-import LandingPage from './app/page/landing-page/landing-page';
-import { Content } from 'antd/es/layout/layout';
-import Features from './app/page/features/features';
-import Testimonials from './app/page/testimonials/testimonials';
+import ShoppingCart from './app/components/shopping-cart/shopping-cart';
+import CustomLayout from './app/layout/layout';
 import Contact from './app/page/contact/contact';
+import Features from './app/page/features/features';
+import LandingPage from './app/page/landing-page/landing-page';
+import Login from './app/page/login/login';
+import LoginModal from './app/page/login/modal/login-modal';
+import HomePage from './app/page/store/store';
+import Testimonials from './app/page/testimonials/testimonials';
 import { useDomain } from './hooks/use-domain';
 import useTexts from './hooks/use-text';
-import PremiumManager from 'app/page/premium/premum';
-import RegistroUsuario from 'app/components/create-user/create-user';
-import PasswordRecoveryForm from 'app/components/password-recovery/password-recovery';
-import UnauthorizedPage from 'app/page/unauthorized/unauthorized';
-import LoadingComponent from 'app/components/loading/loading';
+import store from './store';
+import './App.css';
 
 const App: React.FC = () => {
 	const domain = useDomain();
-	const { texts, loading } = useTexts('andrii-page');
+	const { loading, texts } = useTexts('andrii-page');
 
 	if (loading) {
 		return <LoadingComponent />;
@@ -35,42 +35,48 @@ const App: React.FC = () => {
 		<BrowserRouter basename='/landing'>
 			<Provider store={store}>
 				<CustomLayout>
-						<Content>
-							{/* <div className="sliding-container"> */}
-							<Routes>
-								<Route
-									path='/inicio'
-									element={<LandingPage />}
-								/>
-								<Route path='/tienda' element={<HomePage />} />
-								<Route path='/premium' element={<PremiumManager />} />
-								<Route
-									path='/tienda/carrito-compras'
-									element={<ShoppingCart />}
-								/>
-								<Route path='/login' element={<Login />} />
-								<Route
-									path='/tienda/productos'
-									element={<ProductCatalog />}
-								/>
-								<Route
-									path='/trabajos'
-									element={<Features />}
-								/>
-								<Route
-									path='/testimonios'
-									element={<Testimonials />}
-								/>
-								<Route path='/contacto' element={<Contact />} />
-								<Route path='/registro-usuario' element={<RegistroUsuario />} />
-								<Route path='/registro-usuario/password-recovery' element={<PasswordRecoveryForm />} />
-								<Route path='/unauthorized' element={<UnauthorizedPage />} />
-							</Routes>
-							{/* </div> */}
-							
-							<ShoppingCartModal />
-							<LoginModal />
-						</Content>
+					<Content>
+						{/* <div className="sliding-container"> */}
+						<Routes>
+							<Route element={<LandingPage />} path='/inicio' />
+							<Route element={<HomePage />} path='/tienda' />
+							<Route
+								element={<PremiumManager />}
+								path='/premium'
+							/>
+							<Route
+								element={<ShoppingCart />}
+								path='/tienda/carrito-compras'
+							/>
+							<Route element={<Login />} path='/login' />
+							<Route
+								element={<ProductCatalog />}
+								path='/tienda/productos'
+							/>
+							<Route element={<Features />} path='/trabajos' />
+							<Route
+								element={<Testimonials />}
+								path='/testimonios'
+							/>
+							<Route element={<Contact />} path='/contacto' />
+							<Route
+								element={<RegistroUsuario />}
+								path='/registro-usuario'
+							/>
+							<Route
+								element={<PasswordRecoveryForm />}
+								path='/registro-usuario/password-recovery'
+							/>
+							<Route
+								element={<UnauthorizedPage />}
+								path='/unauthorized'
+							/>
+						</Routes>
+						{/* </div> */}
+
+						<ShoppingCartModal />
+						<LoginModal />
+					</Content>
 				</CustomLayout>
 			</Provider>
 		</BrowserRouter>

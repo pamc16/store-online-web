@@ -1,28 +1,28 @@
-import React from "react";
-import { Carousel } from "antd";
-import "./carousel.css";
+import { Carousel } from 'antd';
+import React from 'react';
+import './carousel.css';
 
 interface ProductosItems {
-  producto_id: number;
-  nombre: string;
-  image: string;
-  path: string;
+	image: string;
+	nombre: string;
+	path: string;
+	producto_id: number;
 }
 
 interface CarouselComponentProps {
-  productos: ProductosItems[];
+	productos: ProductosItems[];
 }
 
 const CarouselComponent: React.FC<CarouselComponentProps> = ({ productos }) => {
-  return (
-    <Carousel autoplay autoplaySpeed={3000} dots>
-      {productos.map((producto, index) => (
-        <div key={index}>
-          <img src={producto.image} alt={producto.nombre} />
-        </div>
-      ))}
-    </Carousel>
-  );
+	return (
+		<Carousel autoplay autoplaySpeed={3000} dots>
+			{productos.map((producto, index) => (
+				<div key={index}>
+					<img alt={producto.nombre} src={producto.image} />
+				</div>
+			))}
+		</Carousel>
+	);
 };
 
 export default CarouselComponent;

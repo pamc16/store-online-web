@@ -1,43 +1,43 @@
-import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../../root-reducer";
-import { CategoriaItems } from "../../components/menu/menu";
+import { Dispatch, type PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { type RootState } from '../../../root-reducer';
+import { type CategoriaItems } from '../../components/menu/menu';
 
 interface InitialState {
-  categorias: CategoriaItems[];
-  subcategorias: any;
-  openModalShoppingCart: boolean;
+	categorias: CategoriaItems[];
+	openModalShoppingCart: boolean;
+	subcategorias: any;
 }
 
 const initialState: InitialState = {
-  categorias: [],
-  subcategorias: [],
-  openModalShoppingCart: false,
+	categorias: [],
+	openModalShoppingCart: false,
+	subcategorias: [],
 };
 
 const layoutSlice = createSlice({
-  name: "layout",
-  initialState,
-  reducers: {
-    increment(state) {
-      state.categorias = [];
-    },
-    decrement(state) {
-      state.subcategorias = [];
-    },
-    incrementByAmount(state, action: PayloadAction<any>) {
-      state.categorias = action.payload;
-    },
-    setOpenModalShoppingCart(state, action: PayloadAction<boolean>) {
-      state.openModalShoppingCart = action.payload;
-    },
-  },
+	initialState,
+	name: 'layout',
+	reducers: {
+		decrement(state) {
+			state.subcategorias = [];
+		},
+		increment(state) {
+			state.categorias = [];
+		},
+		incrementByAmount(state, action: PayloadAction<any>) {
+			state.categorias = action.payload;
+		},
+		setOpenModalShoppingCart(state, action: PayloadAction<boolean>) {
+			state.openModalShoppingCart = action.payload;
+		},
+	},
 });
 
 export const {
-  increment,
-  decrement,
-  incrementByAmount,
-  setOpenModalShoppingCart,
+	decrement,
+	increment,
+	incrementByAmount,
+	setOpenModalShoppingCart,
 } = layoutSlice.actions;
 
 export const selectCategorias = (state: RootState) => state.layout.categorias;

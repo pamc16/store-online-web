@@ -1,25 +1,23 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface InitialState {
-    showShoppingCart: boolean;
+	showShoppingCart: boolean;
 }
 
 const initialState: InitialState = {
-    showShoppingCart: false,
+	showShoppingCart: false,
 };
 
 const storeSlice = createSlice({
-  name: "store",
-  initialState,
-  reducers: {
-    setShowShoppingCart(state, action: PayloadAction<boolean>) {
-      state.showShoppingCart = action.payload;
-    },
-  },
+	initialState,
+	name: 'store',
+	reducers: {
+		setShowShoppingCart(state, action: PayloadAction<boolean>) {
+			state.showShoppingCart = action.payload;
+		},
+	},
 });
 
-export const {
-    setShowShoppingCart,
-} = storeSlice.actions;
+export const { setShowShoppingCart } = storeSlice.actions;
 
 export default storeSlice.reducer;

@@ -2,11 +2,11 @@
 import { useEffect, useState } from 'react';
 
 export const useDomain = () => {
-  const [domain, setDomain] = useState<string | null>(null);
+	const [domain, setDomain] = useState<string | null>(null);
 
-  useEffect(() => {
-    setDomain(window.location.hostname);
-  }, []);
+	useEffect(() => {
+		setDomain(window.location.hostname);
+	}, []);
 
-  return domain;
+	return domain;
 };

@@ -1,25 +1,26 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f2f5;
-  margin: 0;
-}  
-  .ant-typography {
-    text-align: center;
-  }
-  
-  .ant-card {
-    transition: transform 0.3s;
-    border-radius: 8px;
-  }
-  
-  .ant-card:hover {
-    transform: translateY(-10px);
-  }
-  
-  .ant-row {
-    margin: 0 auto;
-  }
-  
-  .ant-avatar {
-    margin-bottom: 20px;
-  }
+	margin: 0;
+	font-family: 'Arial', sans-serif;
+	background-color: #f0f2f5;
+}
+
+.ant-typography {
+	text-align: center;
+}
+
+.ant-card {
+	border-radius: 8px;
+	transition: transform 0.3s;
+}
+
+.ant-card:hover {
+	transform: translateY(-10px);
+}
+
+.ant-row {
+	margin: 0 auto;
+}
+
+.ant-avatar {
+	margin-bottom: 20px;
+}

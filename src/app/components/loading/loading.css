@@ -1,11 +1,10 @@
 .loading-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .custom-loader {
-    margin-top: 20px; /* Ejemplo de estilos personalizados */
-  }
-  
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+.custom-loader {
+	margin-top: 20px; /* Ejemplo de estilos personalizados */
+}

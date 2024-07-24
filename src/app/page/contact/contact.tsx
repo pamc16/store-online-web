@@ -1,126 +1,176 @@
 // src/components/Contact.tsx
+import {
+	FacebookOutlined,
+	HomeOutlined,
+	LinkedinOutlined,
+	MailOutlined,
+	PhoneOutlined,
+	TwitterOutlined,
+} from '@ant-design/icons';
+import { Button, Card, Col, Form, Input, Row, Typography } from 'antd';
 import React, { useEffect } from 'react';
-import { Row, Col, Card, Typography, Form, Input, Button } from 'antd';
-import { MailOutlined, PhoneOutlined, HomeOutlined, FacebookOutlined, TwitterOutlined, LinkedinOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { setShowShoppingCart } from '../store/slice/store.slice';
 
-const { Title, Paragraph } = Typography;
+const { Paragraph, Title } = Typography;
 
 const contactInfo = [
-  {
-    icon: <MailOutlined style={{ fontSize: '24px', color: '#08c' }} />,
-    title: 'Email',
-    description: 'contact@example.com',
-  },
-  {
-    icon: <PhoneOutlined style={{ fontSize: '24px', color: '#08c' }} />,
-    title: 'Phone',
-    description: '+1 234 567 890',
-  },
-  {
-    icon: <HomeOutlined style={{ fontSize: '24px', color: '#08c' }} />,
-    title: 'Location',
-    description: '123 Main Street, City, Country',
-  },
+	{
+		description: 'contact@example.com',
+		icon: <MailOutlined style={{ color: '#08c', fontSize: '24px' }} />,
+		title: 'Email',
+	},
+	{
+		description: '+1 234 567 890',
+		icon: <PhoneOutlined style={{ color: '#08c', fontSize: '24px' }} />,
+		title: 'Phone',
+	},
+	{
+		description: '123 Main Street, City, Country',
+		icon: <HomeOutlined style={{ color: '#08c', fontSize: '24px' }} />,
+		title: 'Location',
+	},
 ];
 
 const socialMedia = [
-  {
-    icon: <FacebookOutlined style={{ fontSize: '24px', color: '#08c' }} />,
-    link: 'https://www.facebook.com',
-  },
-  {
-    icon: <TwitterOutlined style={{ fontSize: '24px', color: '#08c' }} />,
-    link: 'https://www.twitter.com',
-  },
-  {
-    icon: <LinkedinOutlined style={{ fontSize: '24px', color: '#08c' }} />,
-    link: 'https://www.linkedin.com',
-  },
+	{
+		icon: <FacebookOutlined style={{ color: '#08c', fontSize: '24px' }} />,
+		link: 'https://www.facebook.com',
+	},
+	{
+		icon: <TwitterOutlined style={{ color: '#08c', fontSize: '24px' }} />,
+		link: 'https://www.twitter.com',
+	},
+	{
+		icon: <LinkedinOutlined style={{ color: '#08c', fontSize: '24px' }} />,
+		link: 'https://www.linkedin.com',
+	},
 ];
 
 const Contact: React.FC = () => {
-  const [form] = Form.useForm();
-  const dispatch = useDispatch();
+	const [form] = Form.useForm();
+	const dispatch = useDispatch();
 
-  useEffect(()=>{
-    dispatch(setShowShoppingCart(false))
-  },[dispatch])
+	useEffect(() => {
+		dispatch(setShowShoppingCart(false));
+	}, [dispatch]);
 
-  const handleFinish = (values: any) => {
-    console.log('Received values:', values);
-    // Aquí puedes manejar el envío del formulario, por ejemplo, enviar un correo
-  };
+	const handleFinish = (values: any) => {
+		console.log('Received values:', values);
+		// aquí puedes manejar el envío del formulario, por ejemplo, enviar un correo
+	};
 
-  return (
-    <div style={{ padding: '50px 0', backgroundColor: '#f0f2f5' }}>
-      <Title level={2} style={{ textAlign: 'center', marginBottom: '40px' }}>
-        Contact Us
-      </Title>
-      <Row gutter={[16, 16]} justify="center">
-        {contactInfo.map((info, index) => (
-          <Col xs={24} sm={12} md={8} key={index}>
-            <Card hoverable style={{ textAlign: 'center', padding: '20px' }}>
-              {info.icon}
-              <Title level={4} style={{ marginTop: '20px' }}>{info.title}</Title>
-              <Paragraph>{info.description}</Paragraph>
-            </Card>
-          </Col>
-        ))}
-      </Row>
-      <Row gutter={[16, 16]} justify="center" style={{ marginTop: '40px' }}>
-        {socialMedia.map((social, index) => (
-          <Col xs={8} sm={8} md={4} key={index} style={{ textAlign: 'center' }}>
-            <a href={social.link} target="_blank" rel="noopener noreferrer">
-              {social.icon}
-            </a>
-          </Col>
-        ))}
-      </Row>
-      <Row justify="center" style={{ marginTop: '40px' }}>
-        <Col xs={24} sm={18} md={12}>
-          <Card hoverable style={{ padding: '20px' }}>
-            <Title level={4} style={{ textAlign: 'center' }}>Send Us a Message</Title>
-            <Form
-              form={form}
-              name="contact"
-              layout="vertical"
-              onFinish={handleFinish}
-              style={{ marginTop: '20px' }}
-            >
-              <Form.Item
-                name="name"
-                label="Name"
-                rules={[{ required: true, message: 'Please enter your name' }]}
-              >
-                <Input placeholder="Your Name" />
-              </Form.Item>
-              <Form.Item
-                name="email"
-                label="Email"
-                rules={[{ required: true, message: 'Please enter your email', type: 'email' }]}
-              >
-                <Input placeholder="Your Email" />
-              </Form.Item>
-              <Form.Item
-                name="message"
-                label="Message"
-                rules={[{ required: true, message: 'Please enter your message' }]}
-              >
-                <Input.TextArea rows={4} placeholder="Your Message" />
-              </Form.Item>
-              <Form.Item style={{ textAlign: 'center' }}>
-                <Button type="primary" htmlType="submit">
-                  Send Message
-                </Button>
-              </Form.Item>
-            </Form>
-          </Card>
-        </Col>
-      </Row>
-    </div>
-  );
+	return (
+		<div style={{ backgroundColor: '#f0f2f5', padding: '50px 0' }}>
+			<Title
+				level={2}
+				style={{ marginBottom: '40px', textAlign: 'center' }}
+			>
+				Contact Us
+			</Title>
+			<Row gutter={[16, 16]} justify='center'>
+				{contactInfo.map((info, index) => (
+					<Col key={index} md={8} sm={12} xs={24}>
+						<Card
+							hoverable
+							style={{ padding: '20px', textAlign: 'center' }}
+						>
+							{info.icon}
+							<Title level={4} style={{ marginTop: '20px' }}>
+								{info.title}
+							</Title>
+							<Paragraph>{info.description}</Paragraph>
+						</Card>
+					</Col>
+				))}
+			</Row>
+			<Row
+				gutter={[16, 16]}
+				justify='center'
+				style={{ marginTop: '40px' }}
+			>
+				{socialMedia.map((social, index) => (
+					<Col
+						key={index}
+						md={4}
+						sm={8}
+						style={{ textAlign: 'center' }}
+						xs={8}
+					>
+						<a
+							href={social.link}
+							rel='noopener noreferrer'
+							target='_blank'
+						>
+							{social.icon}
+						</a>
+					</Col>
+				))}
+			</Row>
+			<Row justify='center' style={{ marginTop: '40px' }}>
+				<Col md={12} sm={18} xs={24}>
+					<Card hoverable style={{ padding: '20px' }}>
+						<Title level={4} style={{ textAlign: 'center' }}>
+							Send Us a Message
+						</Title>
+						<Form
+							form={form}
+							layout='vertical'
+							name='contact'
+							onFinish={handleFinish}
+							style={{ marginTop: '20px' }}
+						>
+							<Form.Item
+								label='Name'
+								name='name'
+								rules={[
+									{
+										message: 'Please enter your name',
+										required: true,
+									},
+								]}
+							>
+								<Input placeholder='Your Name' />
+							</Form.Item>
+							<Form.Item
+								label='Email'
+								name='email'
+								rules={[
+									{
+										message: 'Please enter your email',
+										required: true,
+										type: 'email',
+									},
+								]}
+							>
+								<Input placeholder='Your Email' />
+							</Form.Item>
+							<Form.Item
+								label='Message'
+								name='message'
+								rules={[
+									{
+										message: 'Please enter your message',
+										required: true,
+									},
+								]}
+							>
+								<Input.TextArea
+									placeholder='Your Message'
+									rows={4}
+								/>
+							</Form.Item>
+							<Form.Item style={{ textAlign: 'center' }}>
+								<Button htmlType='submit' type='primary'>
+									Send Message
+								</Button>
+							</Form.Item>
+						</Form>
+					</Card>
+				</Col>
+			</Row>
+		</div>
+	);
 };
 
 export default Contact;

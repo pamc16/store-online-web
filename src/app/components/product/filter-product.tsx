@@ -1,44 +1,44 @@
-import React, { useState } from "react";
-import { AutoComplete, Input } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
-import "./filter-product.css";
+import { SearchOutlined } from '@ant-design/icons';
+import { AutoComplete, Input } from 'antd';
+import React, { useState } from 'react';
+import './filter-product.css';
 
 interface ProductFilterProps {
-  products: string[];
+	products: string[];
 }
 
 const ProductFilter: React.FC<ProductFilterProps> = ({ products }) => {
-  const [searchValue, setSearchValue] = useState("");
-  const [options, setOptions] = useState<{ value: string }[]>([]);
+	const [searchValue, setSearchValue] = useState('');
+	const [options, setOptions] = useState<{ value: string }[]>([]);
 
-  const handleSearch = (value: string) => {
-    setSearchValue(value);
+	const handleSearch = (value: string) => {
+		setSearchValue(value);
 
-    const filteredProducts = products.filter((product) =>
-      product.toLowerCase().includes(value.toLowerCase())
-    );
+		const filteredProducts = products.filter((product) =>
+			product.toLowerCase().includes(value.toLowerCase()),
+		);
 
-    const filteredOptions = filteredProducts.map((product) => ({
-      value: product,
-    }));
+		const filteredOptions = filteredProducts.map((product) => ({
+			value: product,
+		}));
 
-    setOptions(filteredOptions);
-  };
+		setOptions(filteredOptions);
+	};
 
-  return (
-    <AutoComplete
-      value={searchValue}
-      options={options}
-      onChange={handleSearch}
-      className="search-container"
-    >
-      <Input
-        prefix={<SearchOutlined />}
-        placeholder="Buscar productos"
-        onChange={(e) => handleSearch(e.target.value)}
-      />
-    </AutoComplete>
-  );
+	return (
+		<AutoComplete
+			className='search-container'
+			onChange={handleSearch}
+			options={options}
+			value={searchValue}
+		>
+			<Input
+				onChange={(e) => handleSearch(e.target.value)}
+				placeholder='Buscar productos'
+				prefix={<SearchOutlined />}
+			/>
+		</AutoComplete>
+	);
 };
 
 export default ProductFilter;

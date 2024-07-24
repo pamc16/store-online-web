@@ -1,61 +1,72 @@
 // src/components/Features.tsx
+import {
+	HeartOutlined,
+	RocketOutlined,
+	SmileOutlined,
+	StarOutlined,
+} from '@ant-design/icons';
+import { Card, Col, Row, Typography } from 'antd';
 import React, { useEffect } from 'react';
-import { Row, Col, Card, Typography } from 'antd';
-import { StarOutlined, RocketOutlined, HeartOutlined, SmileOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { setShowShoppingCart } from '../store/slice/store.slice';
 
-const { Title, Paragraph } = Typography;
+const { Paragraph, Title } = Typography;
 
 const featuresData = [
-  {
-    icon: <StarOutlined style={{ fontSize: '40px', color: '#08c' }} />,
-    title: 'Great Features',
-    description: 'Discover amazing features that will blow your mind!',
-  },
-  {
-    icon: <RocketOutlined style={{ fontSize: '40px', color: '#08c' }} />,
-    title: 'Fast Performance',
-    description: 'Experience blazing fast performance with our app.',
-  },
-  {
-    icon: <HeartOutlined style={{ fontSize: '40px', color: '#08c' }} />,
-    title: 'Loved by Users',
-    description: 'See why our customers love using our app!',
-  },
-  {
-    icon: <SmileOutlined style={{ fontSize: '40px', color: '#08c' }} />,
-    title: 'User Friendly',
-    description: 'Our app is extremely easy to use and intuitive.',
-  },
+	{
+		description: 'Discover amazing features that will blow your mind!',
+		icon: <StarOutlined style={{ color: '#08c', fontSize: '40px' }} />,
+		title: 'Great Features',
+	},
+	{
+		description: 'Experience blazing fast performance with our app.',
+		icon: <RocketOutlined style={{ color: '#08c', fontSize: '40px' }} />,
+		title: 'Fast Performance',
+	},
+	{
+		description: 'See why our customers love using our app!',
+		icon: <HeartOutlined style={{ color: '#08c', fontSize: '40px' }} />,
+		title: 'Loved by Users',
+	},
+	{
+		description: 'Our app is extremely easy to use and intuitive.',
+		icon: <SmileOutlined style={{ color: '#08c', fontSize: '40px' }} />,
+		title: 'User Friendly',
+	},
 ];
 
 const Features: React.FC = () => {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  useEffect(()=>{
-    dispatch(setShowShoppingCart(false))
-  },[dispatch])
-  return (
-    <div style={{ padding: '50px 0', backgroundColor: '#f0f2f5' }}>
-      <Title level={2} style={{ textAlign: 'center', marginBottom: '40px' }}>
-        Our Features
-      </Title>
-      <Row gutter={[16, 16]} justify="center">
-        {featuresData.map((feature, index) => (
-          <Col xs={24} sm={12} md={8} lg={6} key={index}>
-            <Card hoverable style={{ textAlign: 'center', padding: '20px' }}>
-              {feature.icon}
-              <Title level={4} style={{ marginTop: '20px' }}>
-                {feature.title}
-              </Title>
-              <Paragraph>{feature.description}</Paragraph>
-            </Card>
-          </Col>
-        ))}
-      </Row>
-    </div>
-  );
+	useEffect(() => {
+		dispatch(setShowShoppingCart(false));
+	}, [dispatch]);
+	return (
+		<div style={{ backgroundColor: '#f0f2f5', padding: '50px 0' }}>
+			<Title
+				level={2}
+				style={{ marginBottom: '40px', textAlign: 'center' }}
+			>
+				Our Features
+			</Title>
+			<Row gutter={[16, 16]} justify='center'>
+				{featuresData.map((feature, index) => (
+					<Col key={index} lg={6} md={8} sm={12} xs={24}>
+						<Card
+							hoverable
+							style={{ padding: '20px', textAlign: 'center' }}
+						>
+							{feature.icon}
+							<Title level={4} style={{ marginTop: '20px' }}>
+								{feature.title}
+							</Title>
+							<Paragraph>{feature.description}</Paragraph>
+						</Card>
+					</Col>
+				))}
+			</Row>
+		</div>
+	);
 };
 
 export default Features;

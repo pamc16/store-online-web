@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { Menu, Button, Drawer, Avatar } from 'antd';
 import { LogoutOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons';
-import './menu.css';
-import { Link, useNavigate } from 'react-router-dom';
-import useTexts from '../../../hooks/use-text';
-import { getUserByEmail, logoutUser } from 'services/auth.service';
-import { useDispatch, useSelector } from 'react-redux';
+import { Avatar, Button, Drawer, Menu } from 'antd';
 import {
 	setAccessToken,
 	useLoginSelector,
 } from 'app/page/login/slice/login.slice';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { RootState } from 'root-reducer';
+import { getUserByEmail, logoutUser } from 'services/auth.service';
+import useTexts from '../../../hooks/use-text';
 import LoadingComponent from '../loading/loading';
+import './menu.css';
 
 export interface CategoriaItems {
 	categoria_id: number;
+	image?: string;
 	nombre: string;
 	path: string;
-	image?: string;
 	subcategorias?: SubCategoriasItems[];
 }
 
 interface SubCategoriasItems {
-	subcategoria_id: number;
+	image?: string;
 	nombre: string;
 	path: string;
-	image?: string;
+	subcategoria_id: number;
 }
 
 const MenuComponent: React.FC = () => {
@@ -45,17 +45,17 @@ const MenuComponent: React.FC = () => {
 	const handleAuth = async () => {
 		try {
 			await logoutUser();
-			// Manejar éxito del cierre de sesión, redireccionar, mostrar mensaje, etc.
+			// manejar éxito del cierre de sesión, redireccionar, mostrar mensaje, etc.
 			dispatch(setAccessToken(''));
 			onClose();
 			navigate('/login');
 		} catch (error) {
-			// Manejar errores, como problemas de red, etc.
+			// manejar errores, como problemas de red, etc.
 			console.error('Error al cerrar sesión:', error);
 		}
 	};
 
-	const { texts, loading } = useTexts('andrii-page');
+	const { loading, texts } = useTexts('andrii-page');
 
 	if (loading) {
 		return <LoadingComponent />;
@@ -64,31 +64,31 @@ const MenuComponent: React.FC = () => {
 	const items = texts.menu.list.map((item: any) => {
 		return {
 			key: item.key,
-			title: item.name,
 			label: <Link to={item.path}>{item.name}</Link>,
+			title: item.name,
 		};
 	});
 
 	return (
 		<div className='container-menu'>
 			<Button
-				type='primary'
 				className='drawer-button'
-				onClick={showDrawer}
 				icon={<MenuOutlined />}
+				onClick={showDrawer}
+				type='primary'
 			/>
 			<Drawer
-				title='Menú'
-				placement='left'
-				onClose={onClose}
-				visible={visible}
 				className='drawer'
+				onClose={onClose}
+				placement='left'
+				title='Menú'
+				visible={visible}
 			>
 				<div className='drawer-header'>
 					{accessToken && (
 						<Avatar
-							size={64}
 							icon={<UserOutlined />}
+							size={64}
 							src={user.photo}
 						/>
 					)}
@@ -97,7 +97,7 @@ const MenuComponent: React.FC = () => {
 							<div className='user-name'>{`${user.firstName} ${user.lastName}`}</div>
 						)}
 						<Button
-							onClick={() => handleAuth()}
+							className='logout-button'
 							icon={
 								accessToken ? (
 									<LogoutOutlined />
@@ -105,16 +105,16 @@ const MenuComponent: React.FC = () => {
 									<UserOutlined />
 								)
 							}
-							className='logout-button'
+							onClick={() => handleAuth()}
 						>
 							{accessToken ? 'Cerrar Sesión' : 'Iniciar Sesión'}
 						</Button>
 					</div>
 				</div>
 				<Menu
-					mode='vertical'
 					defaultSelectedKeys={['1']}
 					items={items}
+					mode='vertical'
 				/>
 			</Drawer>
 		</div>

@@ -1,15 +1,15 @@
-import React, { ReactNode, useEffect } from 'react';
 import { Divider, Layout, Menu, Space } from 'antd';
-import HeaderComponent from '../components/header/header';
-import FooterComponent from '../components/footer/footer';
-import './layout.css';
-import Breadcrumbs from '../components/breadcrumb/breadcrumb';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../root-reducer';
-import { decrement, increment, incrementByAmount } from './slices/layout.slice';
-import { Link } from 'react-router-dom';
-import useTexts from 'hooks/use-text';
 import LoadingComponent from 'app/components/loading/loading';
+import useTexts from 'hooks/use-text';
+import React, { type ReactNode, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { type RootState } from '../../root-reducer';
+import Breadcrumbs from '../components/breadcrumb/breadcrumb';
+import FooterComponent from '../components/footer/footer';
+import HeaderComponent from '../components/header/header';
+import { decrement, increment, incrementByAmount } from './slices/layout.slice';
+import './layout.css';
 
 const { Content } = Layout;
 
@@ -29,7 +29,7 @@ const CustomLayout: React.FC<CustomLayoutProps> = ({ children }) => {
 		dispatch(incrementByAmount(5));
 	}, [dispatch]);
 	useEffect(() => {}, []);
-	const { texts, loading } = useTexts('andrii-page');
+	const { loading, texts } = useTexts('andrii-page');
 
 	if (loading) {
 		return <LoadingComponent />;
@@ -38,17 +38,22 @@ const CustomLayout: React.FC<CustomLayoutProps> = ({ children }) => {
 	const items = texts.menu.list.map((item: any) => {
 		return {
 			key: item.key,
-			title: item.name,
 			label: <Link to={item.path}>{item.name}</Link>,
+			title: item.name,
 		};
 	});
 	return (
 		<Layout className='layout'>
 			<div className='header-layout'>
 				<HeaderComponent />
-				<Menu theme='dark' mode='horizontal' items={items} className='menu-layout' />
+				<Menu
+					className='menu-layout'
+					items={items}
+					mode='horizontal'
+					theme='dark'
+				/>
 			</div>
-      <Divider style={{margin: '64px 0'}} />
+			<Divider style={{ margin: '64px 0' }} />
 			<Content style={{ padding: '0 50px' }}>
 				<div className='site-layout-content'>{children}</div>
 			</Content>
