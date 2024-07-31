@@ -1,6 +1,9 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import { Card } from 'antd';
-import { setPreviewImage, setPreviewVisible } from 'app/page/premium/slice/premium.slice';
+import {
+	setPreviewImage,
+	setPreviewVisible,
+} from 'app/page/premium/slice/premium.slice';
 import { useInView } from 'react-intersection-observer';
 import { useDispatch } from 'react-redux';
 
@@ -21,12 +24,10 @@ const LazyLoadImage: React.FC<LazyLoadImageProps> = ({
 	});
 	const dispatch = useDispatch();
 
-
-	const handlePreview = async (event: any) => {
-		console.log(event.target.src);
+	const handlePreview = (event: any) => {
 		dispatch(setPreviewImage(event.target.src));
 		dispatch(setPreviewVisible(true));
-	  };
+	};
 
 	return (
 		<div ref={ref}>

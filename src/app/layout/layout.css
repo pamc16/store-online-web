@@ -20,21 +20,11 @@
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
-.menu-layout {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	padding-right: 20px;
-	font-size: 18px;
-	background-color: rgba(0, 0, 0, 0.5);
-}
-
 .layout .header {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: space-around;
 	padding: 20px;
 	color: #ffffff;
 	background-color: rgba(0, 0, 0, 0.5);

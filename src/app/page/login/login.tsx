@@ -2,6 +2,7 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input, notification } from 'antd';
 import LoadingComponent from 'app/components/loading/loading';
+import { setSelectedTab } from 'app/layout/slices/layout.slice';
 import useTexts from 'hooks/use-text';
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -15,7 +16,6 @@ import {
 	useLoginSelector,
 } from './slice/login.slice';
 import './login.css';
-import { setSelectedTab } from 'app/layout/slices/layout.slice';
 
 const Login: React.FC = () => {
 	const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Login: React.FC = () => {
 			dispatch(setSelectedTab('premium'));
 			localStorage.setItem('accessToken', user.accessToken);
 			notification.success({
-				description: `Sesión iniciada con éxito`,
+				description: 'Sesión iniciada con éxito',
 				message: 'Éxito',
 			});
 			navigate('/premium');

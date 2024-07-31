@@ -3,19 +3,27 @@ import { useSelector } from 'react-redux';
 import { type RootState } from 'root-reducer';
 
 interface InitialState {
-	previewVisible: boolean;
+	openModalUploadFile: boolean;
 	previewImage: string;
+	previewVisible: boolean;
 }
 
 const initialState: InitialState = {
-previewImage:'',
-previewVisible:false
+	openModalUploadFile: false,
+	previewImage: '',
+	previewVisible: false,
 };
 
 const premiumSlice = createSlice({
 	initialState,
 	name: 'premium',
 	reducers: {
+		setOpenModalUploadFile(
+			state: InitialState,
+			action: PayloadAction<boolean>,
+		) {
+			state.openModalUploadFile = action.payload;
+		},
 		setPreviewImage(state: InitialState, action: PayloadAction<string>) {
 			state.previewImage = action.payload;
 		},
@@ -30,7 +38,7 @@ export const usePremiumSelector = () =>
 		({ [premiumSlice.name]: slice }) => slice,
 	);
 
-export const { setPreviewImage, setPreviewVisible } =
-premiumSlice.actions;
+export const { setOpenModalUploadFile, setPreviewImage, setPreviewVisible } =
+	premiumSlice.actions;
 
 export default premiumSlice.reducer;

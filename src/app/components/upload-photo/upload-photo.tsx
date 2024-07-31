@@ -5,20 +5,10 @@ import { storage, store } from 'firebase';
 import { addDoc, collection } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React, { useState } from 'react';
-import './upload-photo.css';
-import { setPreviewImage, setPreviewVisible } from 'app/page/premium/slice/premium.slice';
 import { useDispatch } from 'react-redux';
+import './upload-photo.css';
 
-const getBase64 = (file: File) => {
-	return new Promise<string>((resolve, reject) => {
-		const reader = new FileReader();
-		reader.readAsDataURL(file);
-		reader.onload = () => resolve(reader.result as string);
-		reader.onerror = (error) => reject(error);
-	});
-};
-
-interface UploadPhotoProps {
+export interface UploadPhotoProps {
 	onPhotoUploaded: (photo: { description: string; url: string }) => void;
 }
 
@@ -28,7 +18,6 @@ const UploadPhoto: React.FC<UploadPhotoProps> = ({ onPhotoUploaded }) => {
 	const [uploading, setUploading] = useState<boolean>(false);
 	const dispatch = useDispatch();
 
-	
 	const handleCustomRequest = async (options: {
 		file: RcFile;
 		onSuccess: (file: UploadFile<any>) => void;
@@ -60,10 +49,10 @@ const UploadPhoto: React.FC<UploadPhotoProps> = ({ onPhotoUploaded }) => {
 
 			// informar a Ant Design que la carga fue exitosa
 			onSuccess(file as UploadFile<any>);
-			message.success('Imagen subida correctamente.');
+			void message.success('Imagen subida correctamente.');
 		} catch (error) {
 			console.error('Error al subir la imagen:', error);
-			message.error('Error al subir la imagen.');
+			void message.error('Error al subir la imagen.');
 		}
 	};
 
@@ -71,11 +60,11 @@ const UploadPhoto: React.FC<UploadPhotoProps> = ({ onPhotoUploaded }) => {
 		const isJpgOrPng =
 			file.type === 'image/jpeg' || file.type === 'image/png';
 		if (!isJpgOrPng) {
-			message.error('Solo puedes subir archivos JPG/PNG!');
+			void message.error('Solo puedes subir archivos JPG/PNG!');
 		}
 		const isLt2M = file.size / 1024 / 1024 < 2;
 		if (!isLt2M) {
-			message.error('La imagen debe ser más pequeña que 2MB!');
+			void message.error('La imagen debe ser más pequeña que 2MB!');
 		}
 		setImageFile(file);
 		return isJpgOrPng && isLt2M;
@@ -89,8 +78,8 @@ const UploadPhoto: React.FC<UploadPhotoProps> = ({ onPhotoUploaded }) => {
 			<Form.Item label='Subir Imagen'>
 				<Upload
 					beforeUpload={beforeUpload}
-					customRequest={async (options: any) =>
-						await handleCustomRequest(options)
+					customRequest={(options: any) =>
+						handleCustomRequest(options)
 					}
 					maxCount={1}
 					multiple={false}

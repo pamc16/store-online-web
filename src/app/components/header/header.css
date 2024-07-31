@@ -24,9 +24,14 @@
 	font-size: 24px;
 }
 
+.avatar {
+	display: flex;
+	align-items: center;
+}
+
 .search {
 	display: flex;
-	flex: 1;
+	width: 20%;
 	margin: 0 16px;
 }
 
@@ -46,4 +51,41 @@
 .user-name {
 	margin-right: 10px;
 	margin-left: 10px;
+}
+
+.menu-layout {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	margin-right: 20px;
+	font-size: 18px;
+	background-color: rgba(0, 0, 0, 0.5);
+	height: 0;
+}
+
+@media (width <=902px) {
+	.actions {
+		display: none;
+	}
+}
+
+@media (width <=768px) {
+	.actions {
+		display: none;
+	}
+}
+
+@media (width <=480px) {
+	.menu-layout {
+		display: none;
+	}
+
+	.user-name {
+		display: none;
+	}
+
+	.actions {
+		display: none;
+	}
 }

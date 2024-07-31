@@ -5,8 +5,6 @@ import { collection, getDocs } from 'firebase/firestore';
 import {
 	type ListResult,
 	type StorageReference,
-	getDownloadURL,
-	getMetadata,
 	listAll,
 	ref,
 } from 'firebase/storage';
@@ -31,7 +29,6 @@ const ShowPhotos: React.FC<ShowPhotosProps> = ({ uploadedImageUrl }) => {
 		) {
 			return;
 		}
-		setLoading(true);
 		setTimeout(() => {
 			setVisibleImages((prev) => prev + 4); // añadir más imágenes al estado visible
 			setLoading(false);
@@ -62,7 +59,7 @@ const ShowPhotos: React.FC<ShowPhotosProps> = ({ uploadedImageUrl }) => {
 
 				// obtener URLs de descarga de cada imagen encontrada
 				const urls = await Promise.all(
-					listResult.items.map(async (item: StorageReference) => {
+					listResult.items.map((item: StorageReference) => {
 						const image = imagesData.find(
 							(data) => data.name === item.name,
 						);
@@ -81,7 +78,7 @@ const ShowPhotos: React.FC<ShowPhotosProps> = ({ uploadedImageUrl }) => {
 			}
 		};
 
-		fetchPhotos();
+		void fetchPhotos();
 	}, []);
 
 	useEffect(() => {

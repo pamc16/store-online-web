@@ -1,0 +1,61 @@
+.subscription-plans {
+    padding: 40px;
+    background: #f0f2f5;
+    text-align: center;
+}
+
+.plan-card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.plan-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.plan-card .ant-card-actions {
+    border-top: none;
+}
+
+.plan-card .ant-card-head-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.plan-card .ant-card-meta-title {
+    font-size: 32px;
+    color: #1890ff;
+    margin-bottom: 10px;
+}
+
+.button-sub-plan {
+    width: 50% !important;
+}
+
+.plan-card .ant-card-meta-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.features-list li {
+    font-size: 14px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.features-list li:last-child {
+    border-bottom: none;
+}
+
+.pro-card {
+    border: 2px solid #1890ff;
+}

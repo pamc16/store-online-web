@@ -1,5 +1,6 @@
 import { LogoutOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Button, Drawer, Menu, notification } from 'antd';
+import { useLayoutSelector } from 'app/layout/slices/layout.slice';
 import {
 	setAccessToken,
 	setOpenModalLogin,
@@ -7,14 +8,13 @@ import {
 } from 'app/page/login/slice/login.slice';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
+import { Link, type NavigateFunction, useNavigate } from 'react-router-dom';
 import { logoutUser } from 'services/auth.service';
+import { type AppDispatch } from 'store';
 import useTexts from '../../../hooks/use-text';
 import LoadingComponent from '../loading/loading';
 import './menu.css';
-import { useLayoutSelector } from 'app/layout/slices/layout.slice';
-import { handleClickMenu } from 'app/layout/layout';
-import { AppDispatch } from 'store';
+import { handleClickMenu } from '../header/header';
 
 const bearerToken = localStorage.getItem('accessToken') as string;
 
@@ -30,10 +30,10 @@ export const handleAuth = async (
 			dispatch(setAccessToken(''));
 			localStorage.clear();
 			onClose && onClose();
-			navigate('/login');
+			navigate('/inicio');
 			notification.success({
-				message: 'Cerrando Sesión',
 				description: 'Sesión cerrada exitosamente',
+				message: 'Cerrando Sesión',
 			});
 		} else {
 			dispatch(setOpenModalLogin(true));
@@ -100,9 +100,9 @@ const MenuComponent: React.FC = () => {
 			<Drawer
 				className='drawer'
 				onClose={onClose}
+				open={visible}
 				placement='left'
 				title='Menú'
-				open={visible}
 			>
 				<div className='drawer-header'>
 					{accessToken && (
@@ -135,10 +135,10 @@ const MenuComponent: React.FC = () => {
 				</div>
 				<Menu
 					defaultSelectedKeys={[selectedTab]}
-					selectedKeys={[selectedTab]}
 					items={items}
 					mode='vertical'
 					onClick={(menu) => handleClickMenu(menu, dispatch)}
+					selectedKeys={[selectedTab]}
 				/>
 			</Drawer>
 		</div>

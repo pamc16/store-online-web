@@ -15,6 +15,7 @@ import {
 	Row,
 	Typography,
 } from 'antd';
+import SubscriptionPlans from 'app/components/subscription-plans/susbcription-plans';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -123,6 +124,15 @@ const LandingPage: React.FC = () => {
 					</Card>
 				</Col>
 			</Row>
+			<Divider />
+			<Row justify='center' style={{ padding: '50px 0' }}>
+				<Col span={12}>
+					<Title level={2} style={{ textAlign: 'center' }}>
+						Quieres conocer nuestros planes ?
+					</Title>
+				</Col>
+			</Row>
+			<SubscriptionPlans />
 			<Divider />
 			<Row justify='center' style={{ padding: '50px 0' }}>
 				<Col span={12}>
