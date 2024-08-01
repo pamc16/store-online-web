@@ -1,0 +1,91 @@
+.switch-container {
+    display: flex;
+    align-items: center;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.switch-container.landing {
+    background-color: #f0f2f5;
+}
+
+.switch-container.premium {
+    background-color: #ffe58f;
+}
+
+.switch-label {
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+}
+
+.landing-label {
+    color: #1890ff;
+}
+
+.premium-label {
+    color: #faad14;
+}
+
+.custom-switch .ant-switch-inner {
+    width: 100%;
+}
+
+.custom-switch .ant-switch-checked {
+    background-color: #faad14;
+}
+
+.custom-switch .ant-switch-handle {
+    transition: left 0.3s ease, right 0.3s ease;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .switch-container {
+        transform: scale(0.8);
+    }
+
+    .switch-label {
+        font-size: 14px;
+        padding: 3px 8px;
+    }
+
+    .custom-switch .ant-switch-inner {
+        font-size: 12px;
+    }
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .switch-container {
+        transform: scale(0.8);
+    }
+
+    .switch-label {
+        font-size: 14px;
+        padding: 3px 8px;
+    }
+
+    .custom-switch .ant-switch-inner {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .switch-container {
+        transform: scale(0.6);
+    }
+
+    .switch-label {
+        font-size: 12px;
+        padding: 2px 6px;
+    }
+
+    .custom-switch .ant-switch-inner {
+        font-size: 10px;
+    }
+}

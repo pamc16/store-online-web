@@ -5,6 +5,7 @@ import useTexts from 'hooks/use-text';
 import { jwtDecode } from 'jwt-decode';
 import React, { type ReactNode, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { getUserByEmail } from 'services/auth.service';
 import FooterComponent from '../components/footer/footer';
 import HeaderComponent from '../components/header/header';
@@ -15,7 +16,6 @@ import {
 	setSelectedTab,
 } from './slices/layout.slice';
 import './layout.css';
-import { useNavigate } from 'react-router-dom';
 
 const bearerToken = localStorage.getItem('accessToken') as string;
 let email: string;

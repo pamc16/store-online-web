@@ -1,6 +1,6 @@
 import { LogoutOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Button, Drawer, Menu, notification } from 'antd';
-import { useLayoutSelector } from 'app/layout/slices/layout.slice';
+import { setSelectedTab, useLayoutSelector } from 'app/layout/slices/layout.slice';
 import {
 	setAccessToken,
 	setOpenModalLogin,
@@ -12,22 +12,22 @@ import { Link, type NavigateFunction, useNavigate } from 'react-router-dom';
 import { logoutUser } from 'services/auth.service';
 import { type AppDispatch } from 'store';
 import useTexts from '../../../hooks/use-text';
+import { handleClickMenu } from '../header/header';
 import LoadingComponent from '../loading/loading';
 import './menu.css';
-import { handleClickMenu } from '../header/header';
-
-const bearerToken = localStorage.getItem('accessToken') as string;
 
 export const handleAuth = async (
 	dispatch: AppDispatch,
 	navigate: NavigateFunction,
 	onClose?: () => void,
 ) => {
+	const bearerToken = localStorage.getItem('accessToken') as string;
 	try {
 		if (bearerToken) {
 			await logoutUser();
 			// manejar éxito del cierre de sesión, redireccionar, mostrar mensaje, etc.
 			dispatch(setAccessToken(''));
+			dispatch(setSelectedTab('landing_page'));
 			localStorage.clear();
 			onClose && onClose();
 			navigate('/inicio');

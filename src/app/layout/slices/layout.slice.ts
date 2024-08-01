@@ -1,20 +1,20 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 import { type RootState } from '../../../root-reducer';
 import { type CategoriaItems } from '../../components/menu/menu';
-import { useSelector } from 'react-redux';
 
 interface InitialState {
 	categorias: CategoriaItems[];
 	openModalShoppingCart: boolean;
-	subcategorias: any;
 	selectedTab: string;
+	subcategorias: any;
 }
 
 const initialState: InitialState = {
 	categorias: [],
 	openModalShoppingCart: false,
-	subcategorias: [],
 	selectedTab: 'lading_page',
+	subcategorias: [],
 };
 
 const layoutSlice = createSlice({

@@ -22,6 +22,8 @@ import { useDomain } from './hooks/use-domain';
 import useTexts from './hooks/use-text';
 import store from './store';
 import './App.css';
+import SubscriptionPage from 'app/page/subscription-page/subscription-page';
+import ThankYouPage from 'app/page/thank-you-page/thank-you-page';
 
 const App: React.FC = () => {
 	const domain = useDomain();
@@ -70,6 +72,14 @@ const App: React.FC = () => {
 							<Route
 								element={<UnauthorizedPage />}
 								path='/unauthorized'
+							/>
+							<Route
+								element={<SubscriptionPage />}
+								path='/subscripcion'
+							/>
+							<Route
+								element={<ThankYouPage />}
+								path='/thank-you'
 							/>
 						</Routes>
 						{/* </div> */}

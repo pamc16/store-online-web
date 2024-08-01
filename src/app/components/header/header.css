@@ -24,6 +24,11 @@
 	font-size: 24px;
 }
 
+.menu-logo {
+	display: flex;
+	align-items: center;
+}
+
 .avatar {
 	display: flex;
 	align-items: center;
@@ -72,6 +77,10 @@
 
 @media (width <=768px) {
 	.actions {
+		display: none;
+	}
+
+	.user-name {
 		display: none;
 	}
 }

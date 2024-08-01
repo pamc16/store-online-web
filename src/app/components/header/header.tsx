@@ -3,7 +3,7 @@ import {
 	ShoppingCartOutlined,
 	UserOutlined,
 } from '@ant-design/icons';
-import { Avatar, Badge, Button, Layout, Menu } from 'antd';
+import { Avatar, Badge, Button, Layout } from 'antd';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,7 +13,6 @@ import { type RootState } from '../../../root-reducer';
 import {
 	setOpenModalShoppingCart,
 	setSelectedTab,
-	useLayoutSelector,
 } from '../../layout/slices/layout.slice';
 import {
 	setOpenModalLogin,
@@ -21,7 +20,7 @@ import {
 } from '../../page/login/slice/login.slice';
 import LoadingComponent from '../loading/loading';
 import MenuComponent, { handleAuth } from '../menu/menu';
-import ProductFilter from '../product/filter-product';
+import StyledSwitch from '../switch/switch';
 import './header.css';
 
 export const handleClickMenu = (menu: any, dispatch: AppDispatch) => {
@@ -37,7 +36,6 @@ const HeaderComponent: React.FC = () => {
 	const navigate = useNavigate();
 
 	const { accessToken, user } = useLoginSelector();
-	const { selectedTab } = useLayoutSelector();
 
 	const showModal = (open: boolean) => {
 		dispatch(setOpenModalShoppingCart(open));
@@ -71,31 +69,11 @@ const HeaderComponent: React.FC = () => {
 	return (
 		<Header className='header'>
 			{' '}
-			<MenuComponent />
-			<div className='logo'>{texts.header['name_page']}</div>
-			{/* <div className='search'>
-				<ProductFilter
-					products={[
-						'Producto 1',
-						'Producto 2',
-						'Producto 3',
-						'Producto 4',
-						'Producto 5',
-						// agrega más productos según sea necesario
-					]}
-				/>
-			</div> */}
-			<Menu
-				className='menu-layout'
-				defaultActiveFirst={true}
-				defaultSelectedKeys={[selectedTab]}
-				items={items}
-				mode='horizontal'
-				onClick={(menu) => handleClickMenu(menu, dispatch)}
-				selectable={true}
-				selectedKeys={[selectedTab]}
-				theme='dark'
-			/>
+			<div className='menu-logo'>
+				<MenuComponent />
+				<div className='logo'>{texts.header['name_page']}</div>
+			</div>
+			<StyledSwitch />
 			{accessToken && (
 				<div className='avatar'>
 					<Avatar
@@ -106,7 +84,10 @@ const HeaderComponent: React.FC = () => {
 					<div className='user-name'>{`${user.firstName} ${user.lastName}`}</div>
 				</div>
 			)}
-			<div className='actions'>
+			<div
+				className='actions'
+				style={accessToken ? { display: 'none' } : {}}
+			>
 				<Button
 					disabled={!showShoppingCart}
 					icon={<ShoppingCartOutlined />}

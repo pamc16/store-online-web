@@ -9,10 +9,12 @@ import { useNavigate } from 'react-router-dom';
 import { type RootState } from 'root-reducer';
 import {
 	setOpenModalUploadFile,
+	setOpenModalUploadVideo,
 	setPreviewVisible,
 	usePremiumSelector,
 } from './slice/premium.slice';
 import './premium.css';
+import UploadVideoModal from 'app/components/video-upload/modal/modal-video-upload';
 
 const PremiumManager: React.FC = () => {
 	const navigate = useNavigate();
@@ -38,6 +40,10 @@ const PremiumManager: React.FC = () => {
 		dispatch(setOpenModalUploadFile(open));
 	};
 
+	const handleOpenModalUploadVideo = (open: boolean) => {
+		dispatch(setOpenModalUploadVideo(open));
+	};
+
 	useEffect(() => {
 		if (!accessToken) {
 			navigate('/unauthorized');
@@ -46,12 +52,18 @@ const PremiumManager: React.FC = () => {
 
 	return (
 		<div className='container'>
-			<h1>Publicar Fotos</h1>
+			<h1>Agrega tu contenido</h1>
 			<Button
 				className='open-modal-button'
 				icon={<PlusOutlined />}
 				onClick={() => handleOpenModalUploadFile(true)}
 				type='primary'
+			></Button>
+			<Button
+				className='open-modal-button'
+				icon={<PlusOutlined />}
+				onClick={() => handleOpenModalUploadVideo(true)}
+				type='default'
 			></Button>
 			<hr />
 			<h2>Fotos Publicadas</h2>
@@ -69,6 +81,7 @@ const PremiumManager: React.FC = () => {
 				/>
 			</Modal>
 			<UploadFileModal onPhotoUploaded={handlePhotoUploaded} />
+			<UploadVideoModal />
 		</div>
 	);
 };

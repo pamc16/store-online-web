@@ -1,5 +1,6 @@
 import { Button, Card, Col, Row } from 'antd';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './subscription-plans.css';
 
 const { Meta } = Card;
@@ -32,6 +33,7 @@ const plans = [
 ];
 
 const SubscriptionPlans: React.FC = () => {
+	const navigate = useNavigate();
 	return (
 		<div className='subscription-plans'>
 			<Row gutter={[16, 16]} justify='center'>
@@ -43,6 +45,9 @@ const SubscriptionPlans: React.FC = () => {
 									block
 									className='button-sub-plan'
 									key={index}
+									onClick={() => {
+										navigate('/subscripcion');
+									}}
 									type={plan.buttonType as any}
 								>
 									{plan.buttonText}
